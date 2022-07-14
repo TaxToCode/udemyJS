@@ -1,0 +1,50 @@
+<html>
+    <head></head>
+    <body>
+    
+            <h2>
+                LECTURE: Basic Operators
+1. If your country split in half, and each half would contain half the population, 
+then how many people would live in each half?
+2. Increase the population of your country by 1 and log the result to the console
+3. Finland has a population of 6 million. Does your country have more people than 
+Finland?
+4. The average population of a country is 33 million people. Does your country 
+have less people than the average country?
+5. Based on the variables you created, create a new variable 'description'
+which contains a string with this format: 'Portugal is in Europe, and its 11 million 
+people speak portuguese
+            </h2>
+            <script>
+        const koreaPop = 4500
+        document.write(`우리나라 인구가 반쪽이 날 경우 인구수는 ${koreaPop/2}만명입니다. `+"<br>");   
+        document.write(`우리나라 인구수가 만명이 늘어나면 ${1+koreaPop}만명 입니다.`+"<br>");
+        
+        const finPop = 600;
+        if(koreaPop>finPop){
+           document.write(`우리나라 인구는 핀란드 인구보다 많습니다.`+"<br>") 
+        }else{
+            document.write(`우리나라 인구는 핀란드 인구보다 적습니다.`+"<br>")
+        };        
+        
+        const aPoP = 3300;
+            document.write(`우리나라와 a나라의 인구수 차이는 ${koreaPop-aPoP}만명입니다.` +"<br>");
+        
+        const koreaContinent = 'asia';
+        const description = `한국의 소속대륙은 ${koreaContinent}입니다. 그리고 인구수는 ${koreaPop}만명입니다.`;
+            document.write(description);
+
+
+
+
+
+
+            </script>
+
+
+
+
+
+
+    </body>
+</html>

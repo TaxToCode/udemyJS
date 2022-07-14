@@ -1,0 +1,81 @@
+<html>
+    <head></head>
+    <body>
+            <!-- Coding Challenge #1
+                Back to the two gymnastics teams, the Dolphins and the Koalas! There is a new gymnastics discipline, which works differently. Each team competes 3 times, and then the average of the 3
+                scores is calculated (so one average score per team). 3번 상대하고 팀당 3경기 평균을 계산한다.
+            <p>A team only wins if it has at least double the average score of the other team. Otherwise, no team wins! 적어도 상대 평균보다 2배되어야 이기고 아니면 둘다 못이김</p>
+            <p>Your tasks: 1. Create an arrow function 'calcAverage' to calculate the average of 3 scores 애로우 펑션으로 만들어라</p>
+            <p>2. Use the function to calculate the average for both teams 함수로 평균 구하라</p>
+                3. Create a function 'checkWinner' that takes the average score of each team as parameters ('avgDolhins' and 'avgKoalas'), and then logs the winner to the console, together with the
+                victory points, according to the rule above. Example: "Koalas win (30 vs. 13)" 체크위너 함수를 만들어라. 각각 팀들의 평균을 파라미터로 하는 함수이고 승리자를 콘솔에 기록하는 함수
+            <p>4. Use the 'checkWinner' function to determine the winner for both Data 1 and Data 2 체크위너 함수 사용해서 data 1 2 계산해라</p>
+            <p>5. Ignore draws this time 이번경우 무승부는 없는걸루</p>
+            <p>Test data: § Data 1: Dolphins score 44, 23 and 71. Koalas score 65, 54 and 49 § Data 2: Dolphins score 85, 54 and 41. Koalas score 23, 34 and 27</p> -->
+        <script>
+            "use strict";
+
+            
+            // new after lecture
+
+            const calcAverage = (score1, score2, score3) => (score1 + score2 + score3) / 3;
+            const c = function (abc) {
+                console.log(abc);
+            };
+            const avgDolphins = calcAverage();
+            const avgKoalas = calcAverage();
+
+            const checkWinner = function (avgDolphins, avgKoalas) {
+                if (avgDolphins >= avgKoalas * 2) {
+                    c(`Dolphins win (${avgDolphins} vs ${avgKoalas})`);
+                } else if (avgKoalas >= avgDolphins * 2) {
+                    c(`koalas win (${avgKoalas} vs ${avgDolphins})`);
+                } else {
+                    c(`no team win`);
+                }
+            };
+
+            checkWinner(300, 100);
+            checkWinner(200, 150);
+            checkWinner(100, 500);
+
+            // data 1 self
+
+            // const calcAverage = (score1,score2,score3) => (score1+score2+score3)/3;
+            // const avgDolhins = calcAverage(44,23,71);
+            // const avgKoalas = calcAverage(65,54,49);
+            // const c = function(cont){console.log(cont)};
+
+            // const checkWinner = function(avgDolhins,avgKoalas){
+            //     if(avgDolhins>avgKoalas){
+            //         if(avgDolhins>=avgKoalas*2){c(`Dolphins Win (${avgDolhins} vs ${avgKoalas})`)}
+            //             else{c(`Noone got a winning(but Dolphin's point is higher that`)}
+            //     }
+            //     else if(avgKoalas>avgDolhins){
+            //         if(avgKoalas>=avgDolhins*2){c(`Koalas Win (${avgKoalas} vs ${avgDolhins})`)}
+            //             else{c(`Noone got a winning(but Koalas's point is higher than)`)}
+            //     }
+            // }
+            // checkWinner(avgDolhins,avgKoalas);
+
+            // data 2 self
+
+            // const calcAverage = (score1,score2,score3) => (score1+score2+score3)/3;
+            // const avgDolhins = calcAverage(85,54,41);
+            // const avgKoalas = calcAverage(23,34,27);
+            // const c = function(cont){console.log(cont)};
+
+            // const checkWinner = function(avgDolhins,avgKoalas){
+            //     if(avgDolhins>avgKoalas){
+            //         if(avgDolhins>avgKoalas*2){c(`Dolphins Win (${avgDolhins} vs ${avgKoalas})`)}
+            //             else{c(`Noone got a winning(but Dolphin's point is higher that`)}
+            //     }
+            //     else if(avgKoalas>avgDolhins){
+            //         if(avgKoalas>avgDolhins*2){c(`Koalas Win (${avgKoalas} vs ${avgDolhins})`)}
+            //             else{c(`Noone got a winning(but Koalas's point is higher than)`)}
+            //     }
+            // }
+            // checkWinner(avgDolhins,avgKoalas);
+        </script>
+    </body>
+</html>

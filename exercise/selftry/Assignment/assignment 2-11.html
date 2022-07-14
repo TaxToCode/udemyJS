@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            'use strict'
+            //             LECTURE: Looping Arrays, Breaking and Continuing
+            // 1. Let's bring back the 'populations' array from a previous assignment 
+                // 이전 과제들에서 population 가져와라
+            // 2. Use a for loop to compute an array called 'percentages2' containing the 
+            // percentages of the world population for the 4 population values. Use the 
+            // function 'percentageOfWorld1' that you created earlier
+                // 2-5 과제에서 가져오고 따로 루프문으로 만들어라 
+            // 3. Confirm that 'percentages2' contains exactly the same values as the 
+            // 'percentages' array that we created manually in the previous assignment, 
+            // and reflect on how much better this solution is
+                // 가져온거랑 값이 똑같은지 확인해보고 루프가 효율적인걸 느껴봐라
+
+
+            // 이전 내용
+            const pouplations= [100,2000,3000,4500];
+
+            const percentageOfWorld1 = function(pop){
+                console.log(`${pop/9600*100}%`)
+            }
+            percentageOfWorld1(pouplations[0]);
+            percentageOfWorld1(pouplations[1]);
+            percentageOfWorld1(pouplations[2]);
+            percentageOfWorld1(pouplations[3]);
+            
+            
+            // 새로 작성
+            console.log("위 아래 분리");
+            const percentageOfWorld2 = [];   
+            
+            // for (let i=0; i<pouplations.length; i++) {
+            //     percentageOfWorld2.push(pouplations[i]/9600*100);
+            //     console.log(`${percentageOfWorld2[i]}%`);
+            // }
+            for (let i=0; i<pouplations.length; i++) {
+                const perCal = percentageOfWorld1(pouplations[i]);
+                percentageOfWorld2.push(perCal);   
+            } 
+            
+
+
+        </script>
+
+    </body>
+</html>

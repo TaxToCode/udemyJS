@@ -1,0 +1,39 @@
+<html>
+    <head></head>
+    <body>
+            <h2>
+                        LECTURE: Functions Calling Other Functions
+            1. Create a function called 'describePopulation'. Use the function type you
+            like the most. This function takes in two arguments: 'country' and
+            'population', and returns a string like this: 'China has 1441 million people,
+            which is about 18.2% of the world.'
+            2. To calculate the percentage, 'describePopulation' call the
+            'percentageOfWorld1' you created earlier
+            3. Call 'describePopulation' with data for 3 countries of your choice
+        </h2>
+        <script>
+            'use strict'
+            
+            function percentageOfWorld1(population){
+               return `${(population/7900)*100}%` 
+            }
+            function describePopulation(country,population){
+                console.log(`${country} has ${population} million people, which is about ${percentageOfWorld1(population)} of the world` );
+            }
+            
+            describePopulation('South Korea',45);
+            describePopulation('china',1441);
+
+            abc(1020);
+            function abc(numb){
+                console.log(`${numb+500} declaration`);
+            }
+            const def = function(numb){
+                console.log(`${numb+10000} exporession`);
+            }
+            def(6343242)
+
+
+        </script>
+    </body>
+</html>

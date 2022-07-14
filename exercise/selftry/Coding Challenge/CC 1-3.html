@@ -1,0 +1,122 @@
+<html>
+    <head></head>
+    <body>
+        <!-- Coding Challenge #3
+            There are two gymnastics teams, Dolphins and Koalas. They compete against each other 3 times. The winner with the highest average score wins a trophy! Your tasks:
+            
+            1. Calculate the average score for each team, using the test data below
+            
+            2. Compare the team's average scores to determine the winner of the competition, 
+                and print it to the console. 
+                Don't forget that there can be a draw, so test for that as well (draw
+                means they have the same average score)
+            
+            3. Bonus 1: Include a requirement for a minimum score of 100. With this rule, 
+            a team only wins if it has a higher score than the other team, 
+            and the same time a score of at least 100 points. 
+            Hint: Use a logical operator to test for minimum score, as well as multiple else-if blocks 
+            최소점수 100점
+            
+            4. Bonus 2: Minimum score also applies to a draw! 
+            So a draw only happens when both teams have the same score and both have a score greater or equal 100 points. 
+            Otherwise, no team wins     the trophy 
+            최소점수 100점 , 무승부도 감안
+            
+            Test data: § Data 1: Dolphins score 96, 108 and 89. Koalas score 88, 91 and 110 
+            § Data Bonus 1: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 123
+            § Data Bonus 2: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 106 GOOD LUCK -->
+        <script>
+            const dol1 = {
+                score1: 97,
+                score2: 112,
+                score3: 101,
+                name : "Dolphins1",
+            };
+
+            const dol2 = {
+                score1: 97,
+                score2: 112,
+                score3: 101,
+                name : "Dolphins2",
+            };
+
+            const koa1 = {
+                score1: 109,
+                score2: 95,
+                score3: 123,
+                name : "Koalas1",
+            };
+
+            const koa2 = {
+                score1: 109,
+                score2: 95,
+                score3: 106,
+                name : "Koalas2",
+            };
+
+            function avgCal(a) {
+                this.value = (a.score1 + a.score2 + a.score3) / 3;
+                return this.value;
+            }
+
+            function compareScore(a, b) {
+                this.aAvg = avgCal(a);
+                this.bAvg = avgCal(b);
+                if (aAvg < 100 && bAvg < 100) {
+                    console.log(`Noone Win`);
+                } else if (aAvg === bAvg) {
+                    console.log(`Draw`);
+                } else if (aAvg > bAvg) {
+                    console.log(`${a.name} Win`);
+                } else if (aAvg < bAvg) {
+                    console.log(`${b.name} Win`);
+                }
+            };
+
+            compareScore(dol1,koa1);
+            compareScore(dol2,koa2);
+
+
+            // // data 1
+            // const dolphinsAVS1 = (96 + 108 + 89) / 3;
+            // const koalasAVS1 = (88 + 91 + 110) / 3;
+            // if (dolphinsAVS1 < 100 && koalasAVS1 < 100) {
+            //     console.log(`Noone will get trophy1 by 100 points cut`);
+            // } else if (dolphinsAVS1 === koalasAVS1) {
+            //     console.log(`draw by same points`);
+            // } else if (dolphinsAVS1 > koalasAVS1) {
+            //     console.log(`data1 Dolphins will get trophy`);
+            // } else if (dolphinsAVS1 < koalasAVS1) {
+            //     console.log(`data1 Koalas will get trophy`);
+            // }
+
+            // // data 2
+            // const dolphinsAVS2 = (97 + 112 + 101) / 3;
+            // const koalasAVS2 = (109 + 95 + 123) / 3;
+
+            // if (dolphinsAVS2 < 100 && koalasAVS2 < 100) {
+            //     console.log(`Noone will get trophy3 by 100 points cut`);
+            // } else if (dolphinsAVS2 === koalasAVS2) {
+            //     console.log(`draw by same points`);
+            // } else if (dolphinsAVS2 > koalasAVS2) {
+            //     console.log(`data2 Dolphins will get trophy`);
+            // } else if (dolphinsAVS2 < koalasAVS2) {
+            //     console.log(`data2 Koalas will get trophy`);
+            // }
+
+            // // data 3
+            // const dolphinsAVS3 = (97 + 112 + 101) / 3;
+            // const koalasAVS3 = (109 + 95 + 106) / 3;
+
+            // if (dolphinsAVS3 < 100 && koalasAVS3 < 100) {
+            //     console.log(`Noone will get trophy3 by 100 points cut`);
+            // } else if (dolphinsAVS3 === koalasAVS3) {
+            //     console.log(`draw by same points`);
+            // } else if (dolphinsAVS3 > koalasAVS3) {
+            //     console.log(`data3 Dolphins will get trophy`);
+            // } else if (dolphinsAVS3 < koalasAVS3) {
+            //     console.log(`data3 Koalas will get trophy`);
+            // }
+        </script>
+    </body>
+</html>

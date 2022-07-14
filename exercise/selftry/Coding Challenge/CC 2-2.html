@@ -1,0 +1,94 @@
+<html>
+    <head></head>
+    <body>
+        <!-- <h2>
+            Coding Challenge #2
+            <p>
+                Steven is still building his tip calculator, using the same rules as before: Tip 15% of the bill if the bill value is between 50 and 300, and if the value is different, the tip is 20%.
+                50~300달러 사이에는 팁이 15%고 나머지 구간은 20%
+            </p>
+            <p>
+                Your tasks: 1. Write a function 'calcTip' that takes any bill value as an input and returns the corresponding tip, calculated based on the rules above (you can check out the code from
+                first tip calculator challenge if you need to). Use the function type you like the most. Test the function using a bill value of 100 calcTip 
+                이란 함수를 만든다. 빌을 넣으면 tip이 나오게 100넣고 테스트 해봐라
+            </p>
+            <p>2. And now let's use arrays! So create an array 'bills' containing the test data below bills란 배열을 만들고 테스트 데이터 수치를 넣어라</p>
+            <p>
+                3. Create an array 'tips' containing the tip value for each bill, calculated from the function you created before tip이란 배열을 만들고 각각 빌에 맞게 tip을 넣어라 함수에서 계산한거
+                토대로
+            </p>
+            <p>4. Bonus: Create an array 'total' containing the total values, so the bill + tip Test data: 125, 555 and 44 보너스로 total이란 배열을 만들어라 빌이랑 팁 합친 수치 GOOD LUCK �</p>
+        </h2> -->
+        <script>
+            "use strict";
+
+            const calcTip = function(bill){
+                if(bill >= 50 && 300 >= bill){
+                    return bill * 0.2
+                }else{
+                    return bill * 0.15
+                };
+            };
+
+            // const calcTip = bill => bill >= 50 && bill <= 300 ? bill*0.2 : bill *0.15;
+
+            // const calcTip = function(bill){
+            //     return bill >= 50 && bill <= 300 ? bill * 0.2 : bill * 0.15
+            // };
+
+            const calcPay = function(bill){
+                let tip = [];
+                let finalPay = [];
+                for(let i = 0 ; i < bill.length ; i++){
+                    tip.push(calcTip(bill[i]));
+                };
+
+                for(let i = 0 ; i < bill.length ; i++){
+                    finalPay.push(tip[i] + bill[i]);
+                };
+
+                console.log(`bill is ${bill}`);
+                console.log(`tip is ${tip}`);
+                console.log(`Final pay is ${finalPay}`);
+            }
+
+            let testNumber = [125, 555, 44]
+            calcPay(testNumber);
+
+            //self try
+
+            // const calcTip = function(bills){
+            //     if(300>=bills && bills>=50){
+            //         return bills*0.15;
+            //     }else{
+            //         return bills*0.2;
+            //     }
+            // }
+            // console.log(calcTip(100));
+
+            // const bills = new Array(125,555,44);
+            // console.log(bills);
+            // const tips = new Array(calcTip(bills[0]),calcTip(bills[1]),calcTip(bills[2]));
+            // console.log(tips);
+            // const total = new Array(bills[0] + tips[0] , bills[1] + tips[1], bills[2] + tips[2] );
+            // console.log(total);
+
+            // // lecture
+
+            // const calcTip = function (bill) {
+            //     return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
+            // };
+
+            // // or
+
+            // // const calcTip = bill => bill >= 50 && bill =< 300 ? bill*0.15 : bill*0.2;
+
+            // const bills = new Array(125, 555, 44);
+            // console.log(bills);
+            // const tips = new Array(calcTip(bills[0]), calcTip(bills[1]), calcTip(bills[2]));
+            // console.log(tips);
+            // const total = new Array(bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]);
+            // console.log(total);
+        </script>
+    </body>
+</html>

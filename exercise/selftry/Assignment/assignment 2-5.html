@@ -1,0 +1,35 @@
+<html>
+    <head></head>
+    <body>
+        <h2>
+                        LECTURE: Introduction to Arrays
+            1. Create an array containing 4 population values of 4 countries of your choice.
+            You may use the values you have been using previously. Store this array into a
+            variable called 'populations'
+            2. Log to the console whether the array has 4 elements or not (true or false)
+            3. Create an array called 'percentages' containing the percentages of the
+            world population for these 4 population values. Use the function
+            'percentageOfWorld1' that you created earlier to compute the 4
+            percentage values
+        </h2>
+        <script>
+            const pouplations= [100,2000,3000,4500];
+            console.log(pouplations.length === 5);
+
+            const percentageOfWorld1 = function(pop){
+                console.log(`${pop/9600*100}%`)
+            }
+            percentageOfWorld1(pouplations[0]);
+            percentageOfWorld1(pouplations[1]);
+            percentageOfWorld1(pouplations[2]);
+            percentageOfWorld1(pouplations[3]);
+
+            const test = [1,2,3,4];
+            const test1 = test.shift();
+            const test2 = test.pop();
+            console.log(test1);
+            console.log(test2);
+
+        </script>
+    </body>
+</html>

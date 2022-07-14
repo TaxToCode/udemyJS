@@ -1,0 +1,60 @@
+<html>
+    <head></head>
+    <body>
+        <!-- 
+        Steven wants to build a very simple tip calculator for whenever he goes eating in a restaurant. In his country, it's usual to tip 15% if the bill value is between 50 and 300. If the
+        value is different, the tip is 20%.
+        
+        Your tasks: 1. Calculate the tip, depending on the bill value. Create a variable called 'tip' for this. It's not allowed to use an if/else statement � (If it's easier for you, you can
+        start with an if/else statement, and then try to convert it to a ternary operator!)
+
+        2. Print a string to the console containing the bill value, the tip, and the final value (bill + tip). Example: “The bill was 275, the tip was 41.25, and the total value 316.25” Test
+        data: 
+        
+        § Data 1: Test for bill values 275, 40 and 430
+        
+        Hints: § To calculate 20% of a value, simply multiply it by 20/100 = 0.2 § Value X is between 50 and 300, if it's >= 50 && <= 300 � GOOD LUCK
+        
+        스티븐은 간단한 계산기를 만들고싶다. 
+        50에서 300달러 사이의 지불서에 15%의 팁을 남긴다. 
+        다른 범주면 20%의 팁 
+        1.청구서 가격에 맞게 팁을 계산하라. 'tip'이란 변수를 만들어라. 
+        이 문제에서는 if else문의 사용을 금지하고 삼항연산자를 사용하라. 
+        2. 팁과 청구 가격 그리고 둘을 합친 최종가격을 string으로 출력하라. -->
+        <script>
+
+        let bill = 275
+        let tip;
+        tip = bill <= 300 && bill >= 50 ? bill *0.15 : bill*0.2;
+        let howMuchPay = bill+tip
+        console.log(howMuchPay);
+
+        bill = 40
+        tip = bill <= 300 && bill >= 50 ? bill *0.15 : bill*0.2;
+        howMuchPay = bill+tip
+        console.log(howMuchPay);
+
+        bill = 430
+        tip = bill <= 300 && bill >= 50 ? bill *0.15 : bill*0.2;
+        howMuchPay = bill+tip
+        console.log(howMuchPay);
+
+
+        //     // data1 valute is 275
+        //     let tip;
+        //     let bill = 275;
+        //     bill >= 50 && bill <= 300 ? (tip = 0.15 * bill) : (tip = 0.2 * bill);
+        //     console.log(`The bill was ${bill}, the tip was ${tip}, and the total value ${bill + tip}`);
+           
+        //     // data1 valute is 49
+        //     bill = 40;
+        //     bill >= 50 && bill <= 300 ? (tip = 0.15 * bill) : (tip = 0.2 * bill);
+        //     console.log(`The bill was ${bill}, the tip was ${tip}, and the total value ${bill + tip}`);
+          
+        //     // data1 valute is 430
+        //     bill = 430;
+        //     bill >= 50 && bill <= 300 ? (tip = 0.15 * bill) : (tip = 0.2 * bill);
+        //     console.log(`The bill was ${bill}, the tip was ${tip}, and the total value ${bill + tip}`);
+        </script>
+    </body>
+</html>
