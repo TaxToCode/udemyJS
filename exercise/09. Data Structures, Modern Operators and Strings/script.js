@@ -335,14 +335,125 @@ testObject.thirdOrderDelivery({
 
 /////////////////////////////////  05. Short Circuiting (&& and ||)
 
-// Use Any data type, return Any data type, (논리연산자에 꼭 Boolean 쓸 필요 없다.)
-// Short-circuiting, 단락평가라고 한다.
+// // Use Any data type, return Any data type, (논리연산자에 꼭 Boolean 쓸 필요 없다.)
+// // Short-circuiting, 단락평가라고 한다.
 
-console.log(3 || 'Jonas'); // 3 , OR 연산자라서 첫번째 피연산자가 참이니까 다른 피연산자 평가 되지 않는다.
-console.log('' || 'Paul'); // Paul, 첫번째 피연산자가 false니까 다른 피연산자 평가된다.
-console.log(true || 0); // true
-console.log(undefined || null); // null
+// // OR는 첫 번째 피연산자가 참이면 두번쨰 피연산자 보지도 않고 첫 피연산자 return 한다.
+// console.log(3 || 'Jonas'); // 3 , OR 연산자라서 첫번째 피연산자가 참이니까 다른 피연산자 평가 되지 않는다.
+// console.log('' || 'Paul'); // Paul, 첫번째 피연산자가 false니까 다른 피연산자 평가된다.
+// console.log(true || 0); // true
+// console.log(undefined || null); // null
+// console.log(undefined || 0 || '' || 'Hello' || 23 || null); // Hello
 
-console.log(4 && 'Jonas'); 
-// Jonas
-console.log(false && '')
+// const restaurant = {};
+// const guests1 = restaurant.numGeusts ? restaurant.numGeusts : 10;
+// console.log(guests1); // 10
+// restaurant.numGeusts = 30;
+// console.log(guests1); // 30;
+
+// // resturant.numGeusts가 없을 때 5를 반환하게 하는건데 위의 삼항연산자에 비해 더 좋은 방법이다.
+// // 하지만 숫자가 0일 경우에는 false니까 0이 아니라 뒤에것이 나오는 문제가 있다.
+// // 이 문제는 AND 연산자로 해결해야 
+// const guests2 = restaurant.numGeusts || 5;
+// console.log(guests2); // 10;
+
+// console.log('-------or-------');
+
+// // AND 연산자는 첫번째 피연산자가 true라도 평가가 계속 된다. 
+
+// console.log(0 && 'Jonas'); // 0 (0이 false니까 평가 끝나고 바로 0 반환)
+// console.log(7 && 'Jonas'); // Jonas (7이 true니까 다음 평가 가고 마지막 값 반환)
+// console.log(7 && 0 && 5); // 0  (7이 true니까 다음 평가 갔는데 0이 false니까 평가 끝나고 마지막 값 반환)
+// console.log('Hello' && 23 && null && 'jonas'); // null;
+
+// const restaurant2 = {
+
+// };
+
+// // restaurant2.orderPizza가 존재하는지 먼저 체크하고 있을 때 펑션 작동시킨다.
+// // If문을 이렇게 대체 할 수 있지만 코드를 굉장히 복잡하게 만들기 때문에
+// // 기존 코드에 있는 If문을 전부 교체하는 이상한 짓 하면 안된다.
+// if (restaurant2.orderPizza) {
+//   restaurant.orderPizza('mushrooms', 'spinach');
+// }
+// restaurant2.orderPizza && restaurant.orderPizza('mushrooms', 'spinach'); 
+
+
+// // console.log(4 && 'Jonas'); // Jonas
+// // console.log(false && '')
+
+///////////////////////////////// 06. The Nullish Coalescing Operator (??) null 병합 연산자
+
+// const restaurant = {
+//   numGeusts: 0,
+//   testNull: null,
+// };
+// const guests1 = restaurant.numGeusts || 10;
+// console.log(guests1); // 10, 실제 0인데도 falsy value라서 10으로 나오는 문제가 있다.
+
+// // Nullish Coalescing Operator null 병합 연산자 falsy value 대신 null로 판단한다.
+// // null and undefined (NOT 0 or ')
+// // null이나 undefined일 경우에만 두번째 피연산자가 실행되고 반환되는 것이다.
+// const guests2 = restaurant.numGeusts ?? 10;
+// const testNull1 = restaurant.testNull ?? 'test';
+// const testNull2 = restaurant.testNull ?? undefined ?? '' ?? 'test4';
+// console.log(guests2); // 0
+// console.log(testNull1); // test;
+// console.log(testNull2); // ''
+
+///////////////////////////////// 07. Logical Assignment Operators
+
+// ES2021에서 도입된 세가지 논리 할당 연산자 Logical Assignment Operators
+const rest1 = {
+  name: '김밥천국',
+  numGuests: 20,
+  testZeroNumb: 0,
+  testZeroNumb2: 0,
+};
+const rest2 = {
+  name: '피자스쿨',
+  owner: '김피자'
+};
+
+//// OR assignment operator
+
+rest1.numberGuests = rest1.numGuests || 10;
+rest2.numberGuests = rest2.numGuests || 10;
+console.log(rest1.numberGuests); // 20;
+console.log(rest2.numberGuests); // 10;
+
+// 위의 방법과 동일하게 작동한다.
+rest1.numGuests1 ||= 10;
+rest2.numGuests1 ||= 10;
+console.log(rest1.numberGuests); // 20;
+console.log(rest2.numberGuests); // 10;
+
+// 그래서 0(falsy value)일 경우 발생하는 문제도 동일하게 발생하게 된다.
+rest1.testZeroNumb ||= 40;
+console.log(rest1.testZeroNumb); // 40;
+
+//// nullish assignment operator (null or undefined)
+rest1.testZeroNumb2 ??= 50;
+rest2.testZeroNumb2 ??= 50;
+console.log(rest1.testZeroNumb2); // 0;
+console.log(rest2.testZeroNumb2); // 50;
+
+// AND assignment operator
+
+// 위의 방법으로 하면 rest1 안에 owner: undefined가 생김 
+rest1.owner = rest1.owner && '<ANONYMOUS>';
+rest2.owner = rest2.owner && '<ANONYMOUS>';
+console.log(rest1.owner); // undefined 
+console.log(rest1); // { name: '김밥천국', numGuests: 20, testZeroNumb: 0, testZeroNumb2: 0, owner: '<ANONYMOUS>' }
+console.log(rest2.owner); // <ANONYMOUS>
+
+// 아래의 방법으로 하면 rest1,3 안에 owner: undefined가 아예 안생겨서 더 좋다.
+const rest3 = { testNumb: 100};
+rest1.owner &&= '<ANONYMOUS>';
+rest2.owner &&= '<ANONYMOUS>';
+rest3.owner &&= '<ANONYMOUS>';
+console.log(rest1.owner); // undefined
+console.log(rest2.owner); // <ANONYMOUS>
+console.log(rest3); // { testNumb: 100 }
+
+///////////////////////////////// 08. Coding Challenge #1
