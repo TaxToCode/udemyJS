@@ -403,57 +403,192 @@ testObject.thirdOrderDelivery({
 
 ///////////////////////////////// 07. Logical Assignment Operators
 
-// ES2021에서 도입된 세가지 논리 할당 연산자 Logical Assignment Operators
-const rest1 = {
-  name: '김밥천국',
-  numGuests: 20,
-  testZeroNumb: 0,
-  testZeroNumb2: 0,
-};
-const rest2 = {
-  name: '피자스쿨',
-  owner: '김피자'
-};
+// // ES2021에서 도입된 세가지 논리 할당 연산자 Logical Assignment Operators
+// const rest1 = {
+//   name: '김밥천국',
+//   numGuests: 20,
+//   testZeroNumb: 0,
+//   testZeroNumb2: 0,
+// };
+// const rest2 = {
+//   name: '피자스쿨',
+//   owner: '김피자'
+// };
 
-//// OR assignment operator
+// //// OR assignment operator
 
-rest1.numberGuests = rest1.numGuests || 10;
-rest2.numberGuests = rest2.numGuests || 10;
-console.log(rest1.numberGuests); // 20;
-console.log(rest2.numberGuests); // 10;
+// rest1.numberGuests = rest1.numGuests || 10;
+// rest2.numberGuests = rest2.numGuests || 10;
+// console.log(rest1.numberGuests); // 20;
+// console.log(rest2.numberGuests); // 10;
 
-// 위의 방법과 동일하게 작동한다.
-rest1.numGuests1 ||= 10;
-rest2.numGuests1 ||= 10;
-console.log(rest1.numberGuests); // 20;
-console.log(rest2.numberGuests); // 10;
+// // 위의 방법과 동일하게 작동한다.
+// rest1.numGuests1 ||= 10;
+// rest2.numGuests1 ||= 10;
+// console.log(rest1.numberGuests); // 20;
+// console.log(rest2.numberGuests); // 10;
 
-// 그래서 0(falsy value)일 경우 발생하는 문제도 동일하게 발생하게 된다.
-rest1.testZeroNumb ||= 40;
-console.log(rest1.testZeroNumb); // 40;
+// // 그래서 0(falsy value)일 경우 발생하는 문제도 동일하게 발생하게 된다.
+// rest1.testZeroNumb ||= 40;
+// console.log(rest1.testZeroNumb); // 40;
 
-//// nullish assignment operator (null or undefined)
-rest1.testZeroNumb2 ??= 50;
-rest2.testZeroNumb2 ??= 50;
-console.log(rest1.testZeroNumb2); // 0;
-console.log(rest2.testZeroNumb2); // 50;
+// //// nullish assignment operator (null or undefined)
+// rest1.testZeroNumb2 ??= 50;
+// rest2.testZeroNumb2 ??= 50;
+// console.log(rest1.testZeroNumb2); // 0;
+// console.log(rest2.testZeroNumb2); // 50;
 
-// AND assignment operator
+// // AND assignment operator
 
-// 위의 방법으로 하면 rest1 안에 owner: undefined가 생김 
-rest1.owner = rest1.owner && '<ANONYMOUS>';
-rest2.owner = rest2.owner && '<ANONYMOUS>';
-console.log(rest1.owner); // undefined 
-console.log(rest1); // { name: '김밥천국', numGuests: 20, testZeroNumb: 0, testZeroNumb2: 0, owner: '<ANONYMOUS>' }
-console.log(rest2.owner); // <ANONYMOUS>
+// // 위의 방법으로 하면 rest1 안에 owner: undefined가 생김 
+// rest1.owner = rest1.owner && '<ANONYMOUS>';
+// rest2.owner = rest2.owner && '<ANONYMOUS>';
+// console.log(rest1.owner); // undefined 
+// console.log(rest1); // { name: '김밥천국', numGuests: 20, testZeroNumb: 0, testZeroNumb2: 0, owner: '<ANONYMOUS>' }
+// console.log(rest2.owner); // <ANONYMOUS>
 
-// 아래의 방법으로 하면 rest1,3 안에 owner: undefined가 아예 안생겨서 더 좋다.
-const rest3 = { testNumb: 100};
-rest1.owner &&= '<ANONYMOUS>';
-rest2.owner &&= '<ANONYMOUS>';
-rest3.owner &&= '<ANONYMOUS>';
-console.log(rest1.owner); // undefined
-console.log(rest2.owner); // <ANONYMOUS>
-console.log(rest3); // { testNumb: 100 }
+// // 아래의 방법으로 하면 rest1,3 안에 owner: undefined가 아예 안생겨서 더 좋다.
+// const rest3 = { testNumb: 100};
+// rest1.owner &&= '<ANONYMOUS>';
+// rest2.owner &&= '<ANONYMOUS>';
+// rest3.owner &&= '<ANONYMOUS>';
+// console.log(rest1.owner); // undefined
+// console.log(rest2.owner); // <ANONYMOUS>
+// console.log(rest3); // { testNumb: 100 }
 
 ///////////////////////////////// 08. Coding Challenge #1
+
+/*
+We're building a football betting app (soccer for my American friends �)!
+Suppose we get data from a web service about a certain game ('game' variable on
+next page). In this challenge we're gonna work with that data.
+Your tasks:
+1. Create one player array for each team (variables 'players1' and
+'players2') 
+
+2. The first player in any player array is the goalkeeper and the others are field
+players. For Bayern Munich (team 1) create one variable ('gk') with the
+goalkeeper's name, and one array ('fieldPlayers') with all the remaining 10
+field players
+
+3. Create an array 'allPlayers' containing all players of both teams (22
+players)
+
+4. During the game, Bayern Munich (team 1) used 3 substitute players. So create a
+new array ('players1Final') containing all the original team1 players plus
+'Thiago', 'Coutinho' and 'Perisic'
+
+5. Based on the game.odds object, create one variable for each odd (called
+'team1', 'draw' and 'team2')
+
+6. Write a function ('printGoals') that receives an arbitrary number of player
+names (not an array) and prints each of them to the console, along with the
+number of goals that were scored in total (number of player names passed in)
+
+7. The team with the lower odd is more likely to win. Print to the console which
+team is more likely to win, without using an if/else statement or the ternary
+operator.
+
+Test data for 6.: First, use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'.
+Then, call the function again with players from game.scored
+GOOD LUCK �
+
+// 1. 각각 팀의 멤버로 구성된 2개의 배열 players1, players2를 만들어라
+// 2. gk 변수와 fieldplayers 배열 만들어서 넣어라. 배열에서 첫번째 요소 선수들이 골키퍼
+// 3. allPlayers라는 player1,2 멤버 모두 들어간 배열을 만들어라
+// 4. player1의 배열에서 교체 선수 3명 Thiago Couthinho Perisic가 들어간 새로운 배열 players1Final을 만들어라
+// 5. game.odds를 기초로 team1, draw, team2 변수를 만들어라
+// 6. 플레이어들 넣으면(배열 x) 넣은 골의 수를 콘솔로 출력하는 printGoals 함수를 만들어라
+// 7. odd가 낮을수록 팀이 이길 확률이 높은데 2개의 팀중 어느팀이 이길 확률이 높은지에 대해 출력하는 함수를 만들어라.
+// - 단 if/else 나 삼항연산자를 사용하지 않는다.
+
+*/
+
+// const game = {
+//   team1: 'Bayern Munich',
+//   team2: 'Borrussia Dortmund',
+//   players: [
+//   [
+//   'Neuer',
+//   'Pavard',
+//   'Martinez',
+//   'Alaba',
+//   'Davies',
+//   'Kimmich',
+//   'Goretzka',
+//   'Coman',
+//   'Muller',
+//   'Gnarby',
+//   'Lewandowski',
+//   ],
+//   [
+//   'Burki',
+//   'Schulz',
+//   'Hummels',
+//   'Akanji',
+//   'Hakimi',
+//   'Weigl',
+//   'Witsel',
+//   'Hazard',
+//   'Brandt',
+//   'Sancho',
+//   'Gotze',
+//   ],
+//   ],
+//   score: '4:0',
+//   scored: ['Lewandowski', 'Gnarby', 'Lewandowski',
+//   'Hummels'],
+//   date: 'Nov 9th, 2037',
+//   odds: {
+//   team1: 1.33,
+//   x: 3.25,
+//   team2: 6.5,
+//   },
+// };
+
+// // 1번 문제 
+// const [players1, players2] = game.players
+// console.log(players1);
+// console.log(players2);
+
+// // 2번 문제 
+// const [gk, ...fieldPlayers] = players1;
+// console.log(gk);
+// console.log(fieldPlayers);
+
+// // 3번 문제
+// const allPlayers = [...players1, ...players2];
+
+// // 4번 문제
+// const players1Final = [...players1, 'Thiago', 'Couthinho', 'Perisic'];
+// console.log(players1Final);
+
+// // 5번 문제
+// // const {team1, x: draw, team2} = game.odds
+// const {odds: {team1, x:draw, team2}}= game
+// console.log(team1, draw, team2);
+
+// // 6번 문제
+// const printGoals = function (...players) {
+//   console.log(`팀이 ${players.length}골을 넣었습니다.`)
+// }
+// printGoals ('Davies', 'Muller', 'Lewandowski', 'Kimmich', 'Coman') // 팀이 5골을 넣었습니다.
+// printGoals (...game.scored) //  팀이 4골을 넣었습니다.
+
+// // 7번 문제
+// const showTopdogTeam = function (team1, team2) {
+//   (team1 < team2) && console.log(`team1이 이길 확률이 더 높습니다.`);
+//   (team1 > team2) && console.log(`team2가 이길 확률이 더 높습니다.`);
+// }
+// showTopdogTeam(team1, team2) // team1이 이길 확률이 더 높습니다.
+
+// // 1. 각각 팀의 멤버로 구성된 2개의 배열 players1, players2를 만들어라
+// // 2. gk 변수와 fieldplayers 배열 만들어서 넣어라. 배열에서 첫번째 요소 선수들이 골키퍼
+// // 3. allPlayers라는 player1,2 멤버 모두 들어간 배열을 만들어라
+// // 4. player1의 배열에서 교체 선수 3명 Thiago Couthinho Perisic가 들어간 새로운 배열 players1Final을 만들어라
+// // 5. game.odds를 기초로 team1, draw, team2 변수를 만들어라
+// // 6. 플레이어들 넣으면(배열 x) 넣은 골의 수를 콘솔로 출력하는 printGoals 함수를 만들어라
+// // 7. odd가 낮을수록 팀이 이길 확률이 높은데 2개의 팀중 어느팀이 이길 확률이 높은지에 대해 출력하는 함수를 만들어라.
+// // - 단 if/else 나 삼항연산자를 사용하지 않는다.
+
+///////////////////////////////// 09. Looping Arrays: The for-of Loop
