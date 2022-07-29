@@ -6,28 +6,28 @@
 
 // Data needed for first part of the section
 
-// const restaurant = {
-//   name: 'Classico Italiano',
-//   location: 'Via Angelo Tavanti 23, Firenze, Italy',
-//   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-//   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
-//   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+const restaurant = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-//   openingHours: {
-//     thu: {
-//       open: 12,
-//       close: 22,
-//     },
-//     fri: {
-//       open: 11,
-//       close: 23,
-//     },
-//     sat: {
-//       open: 0, // Open 24 hours
-//       close: 24,
-//     },
-//   },
-// };
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0, // Open 24 hours
+      close: 24,
+    },
+  },
+};
 
 ///////////////////////////////// 01. Destructuring Arrays
 /*
@@ -592,3 +592,132 @@ GOOD LUCK �
 // // - 단 if/else 나 삼항연산자를 사용하지 않는다.
 
 ///////////////////////////////// 09. Looping Arrays: The for-of Loop
+
+// // for-of 루프는 일반적인 for 루프에서 고려해야할 count 같은거 고려 안해도 되는게 편리함
+// // 또한 continue break도 마찬가지로 쓸 수 있다. (다음 챕터)
+// const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+// for (const item of menu) console.log(item) ;
+// // Focaccia
+// // Bruschetta
+// // Garlic Bread
+// // Caprese Salad
+// // Pizza
+// // Pasta
+// // Risotto
+
+// // index를 써야 한다면 entries() 사용하면 된다.
+// for (const item of menu.entries()) {
+//   console.log(item)
+// }
+// // (2) [0, 'Focaccia']
+// // (2) [1, 'Bruschetta']
+// // (2) [2, 'Garlic Bread']
+// // (2) [3, 'Caprese Salad']
+// // (2) [4, 'Pizza']
+// // (2) [5, 'Pasta']
+// // (2) [6, 'Risotto']
+
+// console.log([...menu.entries()]);
+// // [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+
+// for (const [i, el] of menu.entries()) {
+//   console.log(`${i + 1}: ${el}`)
+// }
+// // 1: Focaccia
+// // 2: Bruschetta
+// // 3: Garlic Bread
+// // 4: Caprese Salad
+// // 5: Pizza
+// // 6: Pasta
+// // 7: Risotto
+
+///////////////////////////////// 10. Enhanced Object Literals
+
+// // ES6 새로운 feature인 Enhanced Object Literals (향상된 객체 리터럴)
+// // ES6에서는 세 가지 바법을 도입하여 더 쉽게 객체 리터럴을 작성 할 수 있다.
+
+// const testCase = {
+//   name: 'Classico Italiano',
+//   location: 'Via Angelo Tavanti 23, Firenze, Italy',
+// }
+
+// const exampleObject = {
+//   // 1. Object Initialization From Variables 객체를 정의할 때 
+//   // 속성(property)와 값(value)이 같으면 이런식으로 축약 작성 가능 
+//   // 
+//   testCase,  
+// }
+// console.log(exampleObject.testCase) 
+// // {name: 'Classico Italiano', location: 'Via Angelo Tavanti 23, Firenze, Italy'}
+
+// const testCase2 = {
+//   // 2. Object Method Definition Shorthand 함수 표현식을 이런 식으로 축약해서 사용 가능하다. 
+//   // testFunc: function () {console.log('do testCase2')}
+//   testFunc() {console.log('do testCase2')}
+// }
+// testCase2.testFunc()
+// // do testCase2
+
+// const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+// const testCase3 = {
+//   [weekdays[3]]: {open:12 , close: 22},
+//   [weekdays[4]]: {open:10 , close: 20},
+//   // 3. Dynamic Property Keys
+//   [`day-${2+4}`]: {open: 0, close: 12 + 12}
+// }
+// console.log(testCase3)
+// // day-6: {open: 0, close: 24}
+// // fri: {open: 10, close: 20}
+// // thu: {open: 12, close: 22}
+
+///////////////////////////////// 11. Optional Chaining (?.)
+
+// if문을 쓰지 않고 optional chaining 사용하면 간편하게 쓸 수 있다.
+// 거의 모든 경우에서 nullish 연산자(??)와 함께 쓰인다.
+
+console.log(restaurant.openingHours.mon);
+// undefined
+
+// console.log(restaurant.openingHours.mon.oepn);
+// Uncaught TypeError: Cannot read properties of undefined (reading 'oepn')
+
+// 월요일이 존재하는 경우에만 open을 읽고 아니면 undefined를 return 한다.
+console.log(restaurant.openingHours.mon?.open);
+// undefined
+
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+for (const day of weekdays) {
+  // console.log(day)
+  console.log(`${day}: ${restaurant.openingHours[day]?.open ?? 'closed'}`)
+}
+// mon: closed
+// tue: closed
+// wed: closed
+// thu: 12
+// fri: 11
+// sat: 0
+// sun: closed
+
+//// Methods
+const testObj = {
+  order: function (starterIndex, mainIndex) {
+    return `테스트1:${starterIndex} ,테스트2:${mainIndex}`
+  }
+}
+
+console.log(testObj.order?.(0,1) ?? 'Method does not exist')
+// 테스트1:0 ,테스트2:1
+console.log(testObj.orderRisotto?.(0,1) ?? 'Method does not exist')
+// Method does not exist
+
+//// Arrays
+const sampleUsers = [{
+  name: '테스터',
+  email: 'tester@naver.com'
+}]
+
+console.log(sampleUsers[0]?.name ?? 'User array empty')
+// 테스터
+console.log(sampleUsers[1]?.name ?? 'User array empty')
+// User array empty
