@@ -1185,7 +1185,7 @@ console.log(plane.startsWith('Air')); // false
 //////////////////
 
 ////////////////// 21. Working With Strings - Part 3
-
+/*
 // split과 join의 조합은 강력하다.
 console.log('a+very+nice+string'.split('+')); // (4) ['a', 'very', 'nice', 'string']
 const [firstName, lastName] = 'George Harrison'.split(' ');
@@ -1225,8 +1225,59 @@ console.log(maskCreditCart('21312342')); // ****2342
 const message2 = 'apple banana ';
 console.log(message2.repeat(3)); // apple banana apple banana apple banana
 
+*/
 //////////////////
 ////////////////// 22. Coding Challenge #4
+
+// Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
+// The input will come from a textarea inserted into the DOM (see code below to insert the elements), and conversion will happen when the button is pressed.
+/*
+
+// underscore_case;
+// first_name;
+// Some_Variable;
+// calculate_AGE;
+// delayed_departure;
+
+// self try
+const exerciseData = `  'underscore_case',
+'first_name',
+'Some_Variable',
+'  calculate_AGE',
+'delayed_departure'`;
+
+const convertString = function (input) {
+  const arr = input.split('_');
+  const outputString =
+    arr[0].toLowerCase() + arr[1][0].toUpperCase() + arr[1].slice(1);
+  return outputString.trim();
+};
+
+const editResult = function (stringData) {
+  const checkIcon = '✅';
+  const arrayData = stringData.split(',');
+  let outputString = '';
+
+  for (let word of arrayData) {
+    outputString +=
+      convertString(word).padEnd(20, ' ') +
+      checkIcon.repeat(arrayData.indexOf(word) + 1) +
+      '\n';
+  }
+  return outputString;
+};
+
+console.log(editResult(exerciseData));
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+document.querySelector('button').addEventListener('click', function () {
+  const text = document.querySelector('textarea').value;
+  console.log(editResult(text));
+});
+
+*/
 //////////////////
 ////////////////// 23. String Methods Practice
+// 생략
 //////////////////
