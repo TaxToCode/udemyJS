@@ -6,28 +6,28 @@
 
 // Data needed for first part of the section
 
-const restaurant = {
-  name: 'Classico Italiano',
-  location: 'Via Angelo Tavanti 23, Firenze, Italy',
-  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
-  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+// const restaurant = {
+//   name: 'Classico Italiano',
+//   location: 'Via Angelo Tavanti 23, Firenze, Italy',
+//   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+//   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+//   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
-};
+//   openingHours: {
+//     thu: {
+//       open: 12,
+//       close: 22,
+//     },
+//     fri: {
+//       open: 11,
+//       close: 23,
+//     },
+//     sat: {
+//       open: 0, // Open 24 hours
+//       close: 24,
+//     },
+//   },
+// };
 
 ///////////////////////////////// 01. Destructuring Arrays
 /*
@@ -187,7 +187,7 @@ testObject.thirdOrderDelivery({
   mainIndex: 1,
 });
 // startMenu : Garlic Bread, mainMenu: Pasta
-*/
+
 
 /////////////////////////////////  03. The Spread Operator (...)
 
@@ -546,12 +546,12 @@ GOOD LUCK �
 //   },
 // };
 
-// // 1번 문제 
+// // 1번 문제
 // const [players1, players2] = game.players
 // console.log(players1);
 // console.log(players2);
 
-// // 2번 문제 
+// // 2번 문제
 // const [gk, ...fieldPlayers] = players1;
 // console.log(gk);
 // console.log(fieldPlayers);
@@ -643,16 +643,16 @@ GOOD LUCK �
 // }
 
 // const exampleObject = {
-//   // 1. Object Initialization From Variables 객체를 정의할 때 
-//   // 속성(property)와 값(value)이 같으면 이런식으로 축약 작성 가능 
-//   // 
-//   testCase,  
+//   // 1. Object Initialization From Variables 객체를 정의할 때
+//   // 속성(property)와 값(value)이 같으면 이런식으로 축약 작성 가능
+//   //
+//   testCase,
 // }
-// console.log(exampleObject.testCase) 
+// console.log(exampleObject.testCase)
 // // {name: 'Classico Italiano', location: 'Via Angelo Tavanti 23, Firenze, Italy'}
 
 // const testCase2 = {
-//   // 2. Object Method Definition Shorthand 함수 표현식을 이런 식으로 축약해서 사용 가능하다. 
+//   // 2. Object Method Definition Shorthand 함수 표현식을 이런 식으로 축약해서 사용 가능하다.
 //   // testFunc: function () {console.log('do testCase2')}
 //   testFunc() {console.log('do testCase2')}
 // }
@@ -672,6 +672,7 @@ GOOD LUCK �
 // // thu: {open: 12, close: 22}
 
 ///////////////////////////////// 11. Optional Chaining (?.)
+/*
 
 // if문을 쓰지 않고 optional chaining 사용하면 간편하게 쓸 수 있다.
 // 거의 모든 경우에서 nullish 연산자(??)와 함께 쓰인다.
@@ -721,3 +722,511 @@ console.log(sampleUsers[0]?.name ?? 'User array empty')
 // 테스터
 console.log(sampleUsers[1]?.name ?? 'User array empty')
 // User array empty
+
+*/
+//////////////////
+
+// 12. Looping Objects: Object Keys, Values, and Entries
+/*
+const restaurant = {
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0, // Open 24 hours
+      close: 24,
+    },
+  },
+}
+
+// Property NAMES
+const properties = Object.keys(restaurant.openingHours)
+let openStr = `영업일은 ${properties.length}일 입니다. : `
+for (const day of properties){
+  openStr += `${day}, `;
+}
+console.log(properties) // (3) ['thu', 'fri', 'sat']
+console.log(openStr) // 영업일은 3일 입니다. : thu, fri, sat,
+
+// Property VALUES
+const values = Object.values(restaurant.openingHours)
+console.log(values) // (3) [{…}, {…}, {…}]
+
+// Property Object
+const entries = Object.entries(restaurant.openingHours)
+console.log(entries) // [Array(2), Array(2), Array(2)]
+console.log(entries[0]) // ['thu', {open: 12, close: 22]
+for (let [key, {open, close}] of entries){
+  console.log(key,open, close) // thu 12 22 // fri 11 23 // sat 0 24
+}
+
+*/
+//////////////////
+/*
+// 13. Coding Challenge #2
+// 문제
+const game = {
+  team1: 'Bayern Munich', 
+  team2: 'Borrussia Dortmund', 
+  players: [
+      ['Neuer','Pavard','Martinez','Alaba','Davies','Kimmich','Goretzka','Coman','Muller','Gnarby','Lewandowski',], 
+      ['Burki','Schulz','Hummels','Akanji','Hakimi','Weigl','Witsel','Hazard','Brandt','Sancho','Gotze',], 
+    ],
+  score: '4:0',
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski','Hummels'],
+  date: 'Nov 9th, 2037',
+  odds: {
+      team1: 1.33,
+      x: 3.25,
+      team2: 6.5,
+    }, 
+};
+
+// 1. game.scored 배열을 루프 돌리고 해당 형태로 콘솔 출력해라 (Example: "Goal 1: Lewandowski")
+
+// self try
+const entriesArr = Object.entries(game.scored)
+for (let [i, name] of entriesArr){
+  console.log(`GOAL ${Number(i)+1} : ${name}`)
+}
+
+// lecture 
+for (const [i, player ]of game.scored.entries()){
+  console.log(`Goal ${i + 1}: ${player}`)
+}
+
+// 2. 루프 써서 평균 odd 계산하고 콘솔에 찍어라
+
+// self try
+const tempArr1 = Object.values(game.odds)
+let sum = 0
+for(let el of tempArr1){
+  sum += el
+}
+console.log(`평균 ${sum / tempArr1.length}`)
+
+// lecture
+const odds = Object.values(game.odds)
+let average = 0;
+for (const odd of odds ) average += odd;
+average /= odds.length
+console.log(average)
+
+
+// 3. 3개의 odd를 다음과 같은 형식으로 콘솔에 찍어라. 팀명은 game 객체에서 곧바로 가져다가 써라
+//Odd of victory Bayern Munich: 1.33 
+//Odd of draw: 3.25
+//Odd of victory Borrussia Dortmund: 6.5
+
+// self try
+const tempArr2 = Object.entries(game.odds)
+for (let [teamName, odd] of tempArr2){
+  console.log(`Odd of ${teamName === 'x' ? 'draw' : `victory ${game[teamName]}`} : ${odd}`)
+}
+
+// lecture
+for(const [team, odd] of Object.entries(game.odds)){
+  const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`
+  console.log(`Odd of ${teamStr} ${odd}`)
+}
+
+// 4(보너스). 'scorers'라는 객체를 만들고 key값은 득점자 이름, value값은 득점수가 들어 있게 만들어라.
+
+// self try
+const scorers = {}
+for (let name of game.scored){
+  Object.keys(scorers).includes(name) ? scorers[name] += 1 : scorers[name] = 1  
+}
+
+
+//   1. Loopoverthegame.scoredarrayandprinteachplayernametotheconsole, along with the goal number (Example: "Goal 1: Lewandowski")
+// 2. Usealooptocalculatetheaverageoddandlogittotheconsole(Wealready studied how to calculate averages, you can go check if you don't remember)
+// 3. Printthe3oddstotheconsole,butinaniceformattedway,exactlylikethis:
+// Odd of victory Bayern Munich: 1.33 Odd of draw: 3.25
+// Odd of victory Borrussia Dortmund: 6.5
+// Get the team names directly from the game object, don't hardcode them (except for "draw"). Hint: Note how the odds and the game objects have the same property names 😉
+// 4. Bonus:Createanobjectcalled'scorers'whichcontainsthenamesofthe players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+//      {
+//        Gnarby: 1,
+//        Hummels: 1,
+//        Lewandowski: 2
+// }
+
+*/
+////////////////// 14. Sets
+/*
+// ES6에서 JS 빌트인 데이터 구조로 set와 map이 추가됨
+// 다른 프로그래밍 언어에 일반적으로 존재하는 데이터 구조임.
+
+// From 모던 자바스크립트 Deep Dive
+// Set 객체는 중복되지 않는 유일한 값들의 집합(set)이다. Set 객체는 배열과 유사하지만 다음과 같은 차이가 있다.
+// 1. 동일한 값을 중복하여 포함 할 수 있다. Array : true, Set : false
+// 2. 요소 순서에 의미가 있다. Array : true, Set : false
+// 3. 인덱스로 요소에 접근할 수 있다. Array : true, Set : false
+
+const ordersSet = new Set(['라면', '김밥', '쫄면', '김밥', '피자', '피자']) // 일부러 피자 2개 중복
+console.log(ordersSet) // Set(4) {'라면', '김밥', '쫄면', '피자'}// 중복 제거됨
+console.log(new Set('AAAAaabbccccd')) //  Set(5) {'A', 'a', 'b', 'c', 'd'}
+console.log(ordersSet.size) // 4 // size를 통해 set의 크기를 알 수 있다. // array의 length와 혼동하지 않도록 주의
+console.log(ordersSet.has('라면')) // true
+ordersSet.add('초밥')
+ordersSet.add('초밥')
+console.log(ordersSet) // Set(5) {'라면', '김밥', '쫄면', '피자', '초밥'} // 중복추가 안됨.
+ordersSet.delete('라면')
+console.log(ordersSet) // Set(4) {'김밥', '쫄면', '피자', '초밥'}
+ordersSet.clear()
+console.log(ordersSet) // Set(0) {size: 0}
+
+// 모든 값이 unique하기 때문에 순서가 의미가 없다. (index x) 
+// 우리가 알아야 할 것은 set안에 해당 값이 있는지 없는지에 대한 여부, 그래서 has 매서드가 있다
+// 값에 중복이 있어야 하거나 목적이 값을 순서대로 저장하고 찾아오는 것이면 set가 아니라 array를 써야 한다.
+
+for (const order of ordersSet) console.log(order);
+
+const staff = ['웨이터', '요리사', '접수원', '청소부', '요리사', '웨이터'];
+const staffUnique = [...new Set(staff)] // 중복을 제거한 array가 되는것이다.
+
+console.log(new Set(staff).size) // 4 // staff 의 종류가 몇인지
+console.log(new Set('aaaaabbbbccccccc').size) // 3 // 몇 종류의 char가 쓰였는지
+
+// set는 값이 unique하다는 특성과 매서드 사용이 쉽다는 특징이 있어 유용하게 쓸 수 있지만 배열만큼 중요하지는 않다.
+
+*/
+
+////////////////// 15. Maps: Fundamentals
+/*
+// Map이 set보다 더 유용함
+// Object와 다르게 Map은 key의 유형 
+
+const rest = new Map();
+rest.set('name', '김흥국');
+rest.set(1, '강남, 서울');
+console.log(rest.set(2, 'test문구')) // {'name' => '김흥국', 1 => '강남, 서울', 2 => 'test문구'}
+console.log(rest.get('2')) // undefined
+console.log(rest.get(2)) // test문구
+
+rest
+  .set('categories', ['라면', '김밥', '쫄면', '김밥', '피자', '피자'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'We are open')
+  .set(false, 'We are closed')
+
+console.log(rest.get(true)) // We are open
+
+const time1 = 8;
+const time2 = 21;
+console.log(rest.get(time1 > rest.get('open') && time1 < rest.get('close'))) // We are closed
+console.log(rest.get(time2 > rest.get('open') && time2 < rest.get('close'))) // We are open
+// 이런 패턴 복잡해서 좋지 않음.. 예시로 보여준것뿐
+
+console.log(rest.has('categories')) // true
+console.log(rest.has(2)) // true
+rest.delete(2);
+console.log(rest.has(2)) // false
+console.log(rest.size) // 7
+rest.clear();
+console.log(rest.size) // 0
+// delete operator 써서 삭제하는거 slow process라서 비권장
+// Object에서 has처럼 hasOwnProperty라는 매서드 있는데 이거는 나중에 OOP파트에서 얘기 할거임.
+
+
+rest.set([1,2], 'Test');
+console.log(rest.get([1,2])); // undefined
+// set에서 쓴 [1,2]와 console.log에서 쓴 [1,2]는 동일한 요소를 가지고 있지만 
+// heap에 있는 same object가 아니다. 그래서 작동하지 않는다.
+
+const sample = [1,2,3,4]
+rest.set(sample, 'test11');
+console.log(rest.get([1,2,3,4])) // undefiend
+console.log(rest.get(sample)) // test11
+// 작동하게 하려면 이렇게 메모리의 동일한 위치를 참조하게 해야 한다.
+
+rest.set(document.querySelector('h1'), 'Heading')
+
+
+// From 모던 자바스크립트 Deep Dive
+// Map 객체는 키와 값의 쌍으로 이루어진 컬렉션이다.
+// Map 객체는 객체와 유사(Set은 배열과 유사)하지만 다음과 같은 차이가 있다.
+// 1. 키로 사용할 수 있는 값 
+// 객체: 문자열 또는 심벌 값 , Map 객체: 객체를 포함한 모든 값
+// 2. 이터러블
+// 객체: X , Map 객체: O
+// 3. 요소 개수 확인
+// 객체: Object.keys(obj).length , Map객체: map.size
+
+*/
+//////////////////
+
+////////////////// 16. Maps: Iteration
+/*
+// 앞서 배운 내용과 반대로 set 매서드를 사용하지 않고 map을 채우는 방법이 있다.
+// set매서드는 설정할 값이 많으면 번거로워서 조나스는 비선호 하는 편
+
+const question = new Map([
+  ['question', '강남은 어느 도시에 있는 지역일까요'],
+  [1, '서울'],
+  [2, '부산'],
+  [3, '대구'],
+  ['정답', 1],
+  [true, '맞습니다'],
+  [false, '틀렸습니다'],
+]);
+console.log(question) 
+// Map(7) {'question' => '강남은 어느 도시에 있는 지역일까요', 1 => '서울', 2 => '부산', 3 => '대구', '정답' => 1, …}
+
+//// Object를 Map으로 변환 할 때 Object.entries쓰면 된다.
+const openingHours = {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+  }
+
+const hoursMap = new Map(Object.entries(openingHours))
+console.log(openingHours) // {thu: {…}, fri: {…}}
+console.log(hoursMap) // Map(2) {'thu' => {…}, 'fri' => {…}}
+
+//// Iteration 
+console.log(question.get('question'))
+for (const [key, value] of question){
+  if( typeof(key) === 'number'){
+    console.log(`${key}번. ${value} `)
+  }
+}
+// const answer = Number(prompt('Your answer'))
+const answer = 1
+console.log(question.get(question.get('정답') === answer)) // 1번 입력 '맞습니다 // 나머지 입력 '틀렸습니다'
+
+//// map을 array로 변환
+console.log([...question]) // (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+console.log(question.entries()) // MapIterator {'question' => '강남은 어느 도시에 있는 지역일까요', 1 => '서울', 2 => '부산', 3 => '대구', '정답' => 1, …}
+console.log([...question.entries()]) // (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+console.log(question.keys()) // MapIterator {'question', 1, 2, 3, '정답', …}
+console.log([...question.values()]) // (7) ['강남은 어느 도시에 있는 지역일까요', '서울', '부산', '대구', 1, '맞습니다', '틀렸습니다']
+*/
+//////////////////
+////////////////// 17. Summary: Which Data Structure to Use?
+//////////////////
+////////////////// 18. Coding Challenge #3
+/*
+// Let's continue with our football betting app!
+// This time, we have a map called 'gameEvents' (see below) with a log of the events that happened during the game.
+// The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
+// Your tasks:
+// 1. Createanarray'events'ofthedifferentgameeventsthathappened(no duplicates)
+// 2. Afterthegamehasfinished,iswasfoundthattheyellowcardfromminute64 was unfair. So remove this event from the game events log.
+// 3. Computeandlogthefollowingstringtotheconsole:"Aneventhappened,on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+// 4. Loopover'gameEvents'andlogeachelementtotheconsole,marking whether it's in the first half or second half (after 45 min) of the game, like this:
+// [FIRST HALF] 17: ⚽   GOAL GOOD LUCK 😀
+
+const gameEvents = new Map([
+  [17, '⚽ GOAL'],
+  [36, '� Substitution'],
+  [47, '⚽ GOAL'],
+  [61, '� Substitution'],
+  [64, '� Yellow card'],
+  [69, '� Red card'],
+  [70, '� Substitution'],
+  [72, '� Substitution'],
+  [76, '⚽ GOAL'],
+  [80, '⚽ GOAL'],
+  [92, '� Yellow card'],
+]);
+
+//// 1번. 'event'라는 발생한 게임 이벤트들 배열을 만들어라 (중복 없는).
+
+// self try
+const event = [...new Set([...gameEvents.values()])];
+console.log(event);
+
+// lecture
+const eventsLecture = [...new Set(gameEvents.values())];
+console.log(eventsLecture);
+
+//// 2번. 게임이 끝난 후 64분에 옐로카드 잘못된거 파악되어서 취소해야함. 이벤트 로그에서 해당 내용 지워라.
+
+// self try
+gameEvents.delete(64);
+console.log(gameEvents);
+
+// lecture
+gameEvents.delete(64);
+
+//// 3번. '이벤트는 x분 마다 발생했다' 라는 문구를 콘솔창에 출력하라.
+
+// self try
+console.log(`이벤트는 ${90 / gameEvents.size}분 마다 발생했다.`);
+
+// lecture
+const time = [...gameEvents.keys()].pop();
+console.log(
+  `An event happend, on average, every ${time / gameEvents.size} minutes`
+);
+
+//// 4번. 'gameEvents'를 루프돌리고 해당 양식으로 출력한다. [전반전] 17: '⚽ GOAL'
+
+// self try
+for (let event of gameEvents) {
+  const isFirstHalf = event[0] < 46 ? '전반전' : '후반전';
+  console.log(`[${isFirstHalf}] ${event[0]} : ${event[1]}`);
+}
+
+// lecture
+for (const [min, event] of gameEvents) {
+  const half = min <= 45 ? 'FIRST' : 'SECOND';
+  console.log(`[${half} HALF] ${min} : ${event}`);
+}
+
+// 1. Createanarray'events'ofthedifferentgameeventsthathappened(no duplicates)
+// 2. Afterthegamehasfinished,iswasfoundthattheyellowcardfromminute64 was unfair. So remove this event from the game events log.
+// 3. Computeandlogthefollowingstringtotheconsole:"Aneventhappened,on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+// 4. Loopover'gameEvents'andlogeachelementtotheconsole,marking whether it's in the first half or second half (after 45 min) of the game, like this:
+// [FIRST HALF] 17: ⚽   GOAL GOOD LUCK 😀
+
+*/
+//////////////////
+////////////////// 19. Working With Strings - Part 1
+/*
+const airline = 'TAP Air Portugal';
+const plane = 'A320';
+console.log(plane[0]); // A
+console.log(plane[1]); // 3
+console.log(plane[2]); // 2
+console.log('B737'[0]); // B
+
+console.log(airline.length); // 16
+
+console.log(airline.indexOf('r')); // 6
+console.log(airline.lastIndexOf('r')); // 10;
+console.log(airline.indexOf('portugal')); // -1 // 소문자라 못 찾아서
+
+console.log(airline.slice(4)); // Air Portugal
+console.log(airline.slice(4, 7)); // Air // index 4번부터 시작해서 7번에 도달하기전에 멈춘다.
+console.log(airline.slice(0, airline.indexOf(' '))); // TAP
+console.log(airline.slice(airline.lastIndexOf(' ') + 1)); // Portugal
+console.log(airline.slice(-2)); // al
+console.log(airline.slice(1, -1)); // Air Portuga
+
+const checkMiddleSeat = function (seat) {
+  // B and E are middle seats
+  const s = seat.slice(-1);
+  if (s === 'B' || s === 'E') {
+    console.log('middle seat입니다.');
+  } else {
+    console.log('middle seat이 아닙니다.');
+  }
+};
+
+checkMiddleSeat('11B'); // middle seat입니다.
+checkMiddleSeat('23C'); // middle seat이 아닙니다.
+
+// String은 primitive type인데 왜 method를 가지고 있는가?
+// 문자열에서 매서드를 호출할때마다 JS는 자동으로 배후에서 같은 내용으로 string primitive를 string object로 변환한다.
+// 사용 이후 object를 지워 버리는데 이 과정을 boxing이라고 한다.
+
+console.log(new String('jonas')); // String {'jonas'}
+console.log(typeof new String('jonas')); // Object
+console.log(typeof new String('jonas').slice(1)); // String {'jonas'} // String
+*/
+//////////////////
+
+////////////////// 20. Working With Strings - Part 2
+/*
+const airline = 'TAP Air Portugal';
+
+console.log(airline.toLowerCase()); // tap air portugal
+console.log(airline.toUpperCase()); // TAP AIR PORTUGAL
+
+//// Fix capitalization in name
+const passenger = 'jOnAs';
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect =
+  passengerLower[0].toUpperCase() + passengerLower.slice(1);
+console.log(passengerCorrect); // Jonas
+
+//// Comparing emails
+const email = 'hello@jonas.io';
+const loginEmail = '  Hello@Jonas.Io \n';
+
+const lowerEmail = loginEmail.toLowerCase();
+const trimmedEmail = lowerEmail.trim();
+console.log(trimmedEmail); // hello@jonas.io
+
+const normalizedEmail = loginEmail.toLowerCase().trim();
+console.log(normalizedEmail); //hello@jonas.io
+console.log(email === normalizedEmail); // true
+
+//// replacing
+const testString = '1,400Won 1600Won';
+const testString2 = testString.replace('Won', 'Dollar');
+const testString3 = testString.replaceAll('Won', 'Dollar');
+const testString4 = testString.replace(/Won/g, 'Dollar');
+console.log(testString2); // 1,400Dollar 1600Won // 첫번째만 바뀐다.
+console.log(testString3); // 1,400Dollar 1600Dollar
+console.log(testString4); // 1,400Dollar 1600Dollar // 정규식
+
+//// Booleans
+const plane = 'A320neo';
+console.log(plane.includes('A320')); // true
+console.log(plane.startsWith('A320')); // true
+console.log(plane.startsWith('Air')); // false
+*/
+//////////////////
+
+////////////////// 21. Working With Strings - Part 3
+
+// split과 join의 조합은 강력하다.
+console.log('a+very+nice+string'.split('+')); // (4) ['a', 'very', 'nice', 'string']
+const [firstName, lastName] = 'George Harrison'.split(' ');
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName); // Mr. George HARRISON
+
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+  const namesUpper = [];
+  for (const n of names) {
+    namesUpper.push(n[0].toUpperCase() + n.slice(1));
+    // 이 방법 써도 된다.
+    // namesUpper.push(n.replace(n[0], n[0].toUpperCase()));
+  }
+  console.log(namesUpper.join(' '));
+};
+capitalizeName('jessica ann smite davis'); // Jessica Ann Smite Davis
+capitalizeName('jonas schemdtmann'); // Jonas Schemdtmann
+
+//// Padding
+const message = 'Go to gate 23!';
+console.log(message.padStart(25, '+')); // +++++++++++Go to gate 23!
+console.log('Jonas'.padStart(25, '+')); // ++++++++++++++++++++Jonas
+console.log(message.padStart(25, '+').padEnd(35, '+')); // +++++++++++Go to gate 23!++++++++++
+
+const maskCreditCart = function (number) {
+  const str = number + ''; // String안쓰고도 연산자 이용해서 type을 String으로 변환
+  const last = str.slice(-4); // 끝에서 4개 추출
+  return last.padStart(str.length, '*');
+};
+
+console.log(maskCreditCart(412333213122)); // ********3122
+console.log(maskCreditCart(738127381271212)); // ********3122
+console.log(maskCreditCart('21312342')); // ****2342
+
+//// Repeat
+const message2 = 'apple banana ';
+console.log(message2.repeat(3)); // apple banana apple banana apple banana
+
+//////////////////
+////////////////// 22. Coding Challenge #4
+//////////////////
+////////////////// 23. String Methods Practice
+//////////////////
