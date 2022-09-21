@@ -1,252 +1,113 @@
 'use strict';
 
-// const bookings = [];
 
-// const createBooking = function (
-//   flightNum,
-//   numPassengers = 1,
-//   price = 199 * numPassengers
-// ) {
+///////////////////////////// 128. /////////////////////////////
+/*
+const bookings = [];
 
-//   const booking = {
-//     flightNum,
-//     numPassengers,
-//     price,
-//   };
-//   console.log(booking);
-//   bookings.push(booking);
-// };
+const createBooking = function(flightNumb, numPasssengers, price){
 
-// createBooking('LH123');
-// createBooking('LH123', 2, 800);
-// createBooking('LH123', 2);
-// createBooking('LH123', 5);
+  const booking = {
+    flightNumb, 
+    numPasssengers, 
+    price
+  }
+  console.log(booking); 
+  bookings.push(booking);
+}
 
-// createBooking('LH123', undefined, 1000);
+createBooking('LH123'); // {flightNumb: 'LH123', numPasssengers: undefined, price: undefined}
 
-// const flight = 'LH234';
-// const jonas = {
-//   name: 'Jonas Schmedtmann',
-//   passport: 24739479284,
-// };
+////
 
-// const checkIn = function (flightNum, passenger) {
-//   flightNum = 'LH999';
-//   passenger.name = 'Mr. ' + passenger.name;
+const bookings2 = [];
 
-//   if (passenger.passport === 24739479284) {
-//     alert('Checked in');
-//   } else {
-//     alert('Wrong passport!');
-//   }
-// };
+const createBooking2 = function(flightNumb , numPasssengers = 1, price = 199){
+  
+  // ES5 스타일
+  // numPasssengers = numPasssengers || 1;
+  // price = price || 199;
 
-// const newPassport = function (person) {
-//   person.passport = Math.trunc(Math.random() * 100000000000);
-// };
+  // ES6 스타일 (better way)
+  // function 선언할때 numPasssengers = 1, price = 199 선언해주는거
 
-// newPassport(jonas);
-// checkIn(flight, jonas);
+  const booking = {
+    flightNumb, 
+    numPasssengers, 
+    price
+  }
+  console.log(booking); 
+  bookings2.push(booking);
+}
 
+createBooking2('LP123'); // // {flightNumb: 'LP123', numPasssengers: 1, price: 199} 
+createBooking2('LP124', 2 , 800); // {flightNumb: 'LP124', numPasssengers: 2, price: 800}
+createBooking2('LP125', 2 ); // {flightNumb: 'LP125', numPasssengers: 2, price: 199}
 
-// const oneWord = function (str) {
-//   return str.replace(/ /g, '').toLowerCase();
-// };
-
-// const upperFirstWord = function (str) {
-//   const [first, ...others] = str.split(' ');
-//   return [first.toUpperCase(), ...others].join(' ');
-// };
-
-// const transformer = function (str, fn) {
-//   console.log(`Original string: ${str}`);
-//   console.log(`Transformed string: ${fn(str)}`);
-
-//   console.log(`Transformed by: ${fn.name}`);
-// };
-
-// transformer('JavaScript is the best!', upperFirstWord);
-// transformer('JavaScript is the best!', oneWord);
-
-// const high5 = function () {
-//   console.log('👋');
-// };
-// document.body.addEventListener('click', high5);
-// ['Jonas', 'Martha', 'Adam'].forEach(high5);
-
-// const greet = function (greeting) {
-//   return function (name) {
-//     console.log(`${greeting} ${name}`);
-//   };
-// };
-
-// const greeterHey = greet('Hey');
-// greeterHey('Jonas');
-// greeterHey('Steven');
-
-// greet('Hello')('Jonas');
-
-// const greetArr = greeting => name => console.log(`${greeting} ${name}`);
-
-// greetArr('Hi')('Jonas');
-
-// const lufthansa = {
-//   airline: 'Lufthansa',
-//   iataCode: 'LH',
-//   bookings: [],
-//   book(flightNum, name) {
-//     console.log(
-//       `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
-//     );
-//     this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
-//   },
-// };
-
-// lufthansa.book(239, 'Jonas Schmedtmann');
-// lufthansa.book(635, 'John Smith');
-
-// const eurowings = {
-//   airline: 'Eurowings',
-//   iataCode: 'EW',
-//   bookings: [],
-// };
-
-// const book = lufthansa.book;
-
-// book.call(eurowings, 23, 'Sarah Williams');
-// console.log(eurowings);
-
-// book.call(lufthansa, 239, 'Mary Cooper');
-// console.log(lufthansa);
-
-// const swiss = {
-//   airline: 'Swiss Air Lines',
-//   iataCode: 'LX',
-//   bookings: [],
-// };
-
-// book.call(swiss, 583, 'Mary Cooper');
-
-// const flightData = [583, 'George Cooper'];
-// book.apply(swiss, flightData);
-// console.log(swiss);
-
-// book.call(swiss, ...flightData);
-
-// const bookEW = book.bind(eurowings);
-// const bookLH = book.bind(lufthansa);
-// const bookLX = book.bind(swiss);
-
-// bookEW(23, 'Steven Williams');
-
-// const bookEW23 = book.bind(eurowings, 23);
-// bookEW23('Jonas Schmedtmann');
-// bookEW23('Martha Cooper');
-
-// lufthansa.planes = 300;
-// lufthansa.buyPlane = function () {
-//   console.log(this);
-
-//   this.planes++;
-//   console.log(this.planes);
-// };
-
-// document
-//   .querySelector('.buy')
-//   .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
-
-// const addTax = (rate, value) => value + value * rate;
-// console.log(addTax(0.1, 200));
-
-// const addVAT = addTax.bind(null, 0.23);
-
-// console.log(addVAT(100));
-// console.log(addVAT(23));
-
-// const addTaxRate = function (rate) {
-//   return function (value) {
-//     return value + value * rate;
-//   };
-// };
-// const addVAT2 = addTaxRate(0.23);
-// console.log(addVAT2(100));
-// console.log(addVAT2(23));
-// */
-
-// const runOnce = function () {
-//   console.log('This will never run again');
-// };
-// runOnce();
-
-// (function () {
-//   console.log('This will never run again');
-//   const isPrivate = 23;
-// })();
-
-// (() => console.log('This will ALSO never run again'))();
-
-// {
-//   const isPrivate = 23;
-//   var notPrivate = 46;
-// }
-
-// console.log(notPrivate);
+// 중간에 비우고 싶으면 그냥 비우면 에러나니까 undefined로 지정해줘야 한다.
+// createBooking2('LP125', , 5 ); // Uncaught SyntaxError: Unexpected token ',' (at script.js:43:25)
+createBooking2('LP126', undefined , 6 ); // {flightNumb: 'LP126', numPasssengers: 1, price: 6}
+*/
 
 
-// const secureBooking = function () {
-//   let passengerCount = 0;
+///////////////////////////// 129. /////////////////////////////
+// 이 파트는 function에 arguments를 어떻게 pass하는지에 대해서 알아본다.
+// 앞서 살펴본 primitive 타입과 reference 타입에 대해 배운것과도 연관된 내용
 
-//   return function () {
-//     passengerCount++;
-//     console.log(`${passengerCount} passengers`);
-//   };
-// };
+const flight = 'LH234';
+const john = {
+  name : 'John Lennon',
+  passport :12345
+}
+const checkIn = function(flightNumb,  passenger) {
+  // 함수 안에서 parameter를 변경하는것은 좋은 코딩 습관이 아니다.
+  // 해당 강의에서는 작동원리에 대해 보기 위해서 parameter를 변경
+  flightNumb = 'LH999';
+  passenger.name = 'Mr. ' + passenger.name;
+  
+  if (passenger.passport === 12345) {
+    alert('Check In');
+  } else {
+    alert('Wrong Passport');
+  }
+}
+checkIn(flight, john) // 'Check In' alert창으로 출력된다.
 
-// const booker = secureBooking();
+console.log(flight); // LH234 // checkIn 작동했지만 변하지 않았다.
+// checkIn에서 parameter로 쓰인 flightNumb는 primitive type이니 value를 copy한 original value임.
 
-// booker();
-// booker();
-// booker();
+console.log(john); // {name: 'Mr. John Lennon', passport: 12345} // checkIn이 작동하니 Mr.가 붙은 value로 변함.
+// checkIn에서 parameter로 쓰인 passenger는 객체라서 reference type이고 
+// memory heap에 있는 객체를 참조하는것이라 original value가 아님.
+// 그래서 조작하면 original도 같이 조작되는거임.
+// 그리고 이런 특성은 대규모 코드 기반의 프로젝트에서 예측할 수 없는 결과를 초래 할 수 있다.
 
-// console.dir(booker);
+const newPassport = function (person) {
+  person.passport = Math.trunc(Math.random() + 1000000);
+}
+
+newPassport(john); 
+checkIn(flight, john); 
+// alert코드로 'Check In'으로 뜬 다음에 한번 더 'Wrong Passport'가 뜨게 된다.
+// 다른 function에서 하나의 object를 조작하다가 이렇게 문제가 발생 할 수 있다.
 
 
-// let f;
+// 프로그래밍에서 value와 reference를 pass하는 함수를 다룰 때 항상 사용되는 2개의 용어가 있다.
+// 능숙한 프로그래머들도 아래의 이유로 처음 JS를 접할 때 해당 용어에 대해 혼란스럽게 받아들이는 경향이 있다.
 
-// const g = function () {
-//   const a = 23;
-//   f = function () {
-//     console.log(a * 2);
-//   };
-// };
+// 자바스크립트에서는 only passing by value, does not have passing by reference
+// 참조가 전달되는것처럼 보이기는 하지만 실제로는 전달 안된다.
 
-// const h = function () {
-//   const b = 777;
-//   f = function () {
-//     console.log(b * 2);
-//   };
-// };
+// C++ 같은 언어는 you can pass a reference to any value, instead of the value itself
+// 5와 같은 primitive type의 참조도 전달 할 수 있다.
+// 이것을 pass by reference 참조에 의한 전달이라고 한다. 
+// Javascript는 다시 말하지만 참조에 의한 전달이 없다.
 
-// g();
-// f();
-// console.dir(f);
+// 그런데 위에서 Object의 경우 reference를 pass한다. 그래서 혼란스러울수 밖에 없다.
+// JS에서 해당 참조 자체는 여전히 값인데 memory address를 포함하고 있는 값이다.
+// 그래서 함수에 참조를 전달 할 수 있는 것이다.
+// 그러나 we do not pass 'by' reference, 참조를 전달하는것은 아니다!
+// 이 중요한 차이점을 인식해야 한다
 
-// h();
-// f();
-// console.dir(f);
-
-const boardPassengers = function (n, wait) {
-  const perGroup = n / 3;
-
-  setTimeout(function () {
-    console.log(`We are now boarding all ${n} passengers`);
-    console.log(`There are 3 groups, each with ${perGroup} passengers`);
-  }, wait * 1000);
-
-  console.log(`Will start boarding in ${wait} seconds`);
-};
-
-const perGroup = 1000;
-boardPassengers(180, 3);
-
+///////////////////////////// 130. /////////////////////////////
 
