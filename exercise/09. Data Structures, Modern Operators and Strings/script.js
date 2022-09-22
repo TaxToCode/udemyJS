@@ -1281,3 +1281,4 @@ document.querySelector('button').addEventListener('click', function () {
 ////////////////// 23. String Methods Practice
 // 생략
 //////////////////
+

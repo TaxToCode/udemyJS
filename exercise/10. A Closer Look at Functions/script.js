@@ -1,7 +1,7 @@
 'use strict';
 
 
-///////////////////////////// 128. /////////////////////////////
+///////////////////////////// 128. Default Parameters /////////////////////////////
 /*
 const bookings = [];
 
@@ -50,7 +50,7 @@ createBooking2('LP126', undefined , 6 ); // {flightNumb: 'LP126', numPasssengers
 */
 
 
-///////////////////////////// 129. /////////////////////////////
+///////////////////////////// 129. How Passing Arguments Works: Value vs. Reference /////////////////////////////
 /*
 // 이 파트는 function에 arguments를 어떻게 pass하는지에 대해서 알아본다.
 // 앞서 살펴본 primitive 타입과 reference 타입에 대해 배운것과도 연관된 내용
@@ -111,7 +111,7 @@ checkIn(flight, john);
 // 이 중요한 차이점을 인식해야 한다
 
 */
-///////////////////////////// 130. /////////////////////////////
+///////////////////////////// 130. First-Class and Higher-Order Functions /////////////////////////////
 
 // First-Class Functions 일급함수
 // JavaScript treats functions as first-class citizens 
@@ -147,7 +147,7 @@ checkIn(flight, john);
 // 그러나 고차함수는 실제로 있는 함수이다.
 // 프로그래밍 언어에서 일급함수 feature를 제공하는 경우에 한해서 
 
-///////////////////////////// 131. /////////////////////////////
+///////////////////////////// 131. Functions Accepting Callback Functions /////////////////////////////
 /*
 //// High-order function 실제로 만들어보자
 
@@ -212,9 +212,9 @@ document.body.addEventListener('click', high5);
 
 */
 
-///////////////////////////// 132. /////////////////////////////
+///////////////////////////// 132. Functions Returning Functions /////////////////////////////
 // 이번에는 함수를 반환하는 함수를 만들어 보자
-
+/*
 const greet = function (greeting) {
   return function(name) {
     console.log(`${greeting} ${name}`);
@@ -236,5 +236,98 @@ greet('Hello')('Jonas'); // Hello Jonas
 const greetArr = greeting => name => console.log(`${greeting} ${name}`);
 greetArr('Hi')('George'); // Hi George
 
+*/
 
-///////////////////////////// 133. /////////////////////////////
+///////////////////////////// 133. The call and apply Methods /////////////////////////////
+/*
+// this keyword에 대해서 
+
+const lufthansa = {
+  airline : 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  // book: function () {}
+  book(flightNum, name) {
+    console.log(`${name} booked a seat on ${this.airline} flight ${this.iataCode} ${flightNum}`);
+    this.bookings.push({ flight: `${this.iataCode} ${flightNum}`, name });
+  }
+}
+
+lufthansa.book(239, 'John Lennon'); // John Lennon booked a seat on Lufthansa flight LH 239
+lufthansa.book(619, 'Paul Mccartney'); // Paul Mccartney booked a seat on Lufthansa flight LH 619
+console.log(lufthansa.bookings)
+// 0: {flight: 'LH 239', name: 'John Lennon'}
+// 1: {flight: 'LH 619', name: 'Paul Mccartney'}
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+}
+
+const book = lufthansa.book;
+
+// book(23, 'George Harrison'); 
+// Uncaught TypeError: Cannot read properties of undefined (reading 'airline')
+
+// 여기서 book은 regular function call이다.
+// 그래서 여기서 book은 위에 lufthansa object에 있는 function이 아니다
+// 단지 lufthansa.book의 copy가 되는것일뿐 더 이상 매서드가 아니게 되고 그러니까 일반 함수 호출이 되는거
+// 일반 함수 호출에서 this keyword는 strict mode에서는 undefined를 가리킨다.
+// 따라서 이 안에 있는 this 키워드는 undefined가 되는것
+// 이전 파트에서 this keyword를 결정하는 역할은 어떤 함수가 실제로 호출하는지에 달렸다고 한 이유
+
+
+// 그러면 의도한대로 this키워드가 작동하고 매서드를 돌리려면 어떻게 해야 할까?
+// JS에게 해당 사항에 대해서 명시적으로 알려줘야 한다.
+// 이것을 하는 세가지의 방법이 있다.
+// 1.Call 2.Apply 3.Bind
+
+
+//// 1. Call method
+book.call(eurowings, 23, 'Ringo Star');
+console.log(eurowings); // {name: 'Eurowings', iataCode: 'EW', bookings: [{flight: 'EW 23', name: 'Ringo Star'}]}
+// book 함수를 직접 호출하지 않고 call method를 호출했다.
+// call method가 book function을 호출했다.
+// call method에 argument로 원하는 것을 전달 할 수 있다.
+// 그래서 우리가 수동으로 호출하려는 함수의 this 키워드를 첫번째 argument를 통해 설정 할 수 있게 되는것.
+// 첫번째 argument 이외의 모든 argument는 단순히 original function의 argument다.
+
+book.call(lufthansa, 239, 'David Silva');
+console.log(lufthansa.bookings); //  (3) [{…}, {…}, {flight: 'LH 239', name: 'David Silva'}]
+
+const swiss = {
+  airline : 'Swiss Air Lines',
+  iataCode: 'LX',
+  bookings: [],
+}
+
+book.call(swiss, 555, 'Vincent Kompany');
+console.log(swiss) // {airline: 'Swiss Air Lines', iataCode: 'LX', bookings: Array(1)}
+
+//// 2. Apply method
+const flightData = [593, 'Noel Gallagher'];
+book.apply(swiss, flightData);
+console.log(swiss) // {airline: 'Swiss Air Lines', iataCode: 'LX', bookings: Array(2)}
+book.call(swiss, ...flightData);
+// Modern JS에서는 apply 잘 안쓰고 spread 연산자 써서 call을 쓴다. 똑같은 효과
+
+
+*/
+
+///////////////////////////// 134. The bind Method /////////////////////////////
+
+//// bind
+// bind를 사용하면 마찬가지로 this keyword를 수동으로 설정 할 수 있다.
+// 차이점을 즉시 호출하지 않는 것
+// 대신 this keyword가 bind된 곳에 새로운 함수를 반환한다.
+// 따라서 
+
+
+///////////////////////////// 135. Coding Challenge #1 /////////////////////////////
+///////////////////////////// 136. Immediately Invoked Function Expressions (IIFE) /////////////////////////////
+///////////////////////////// 137. Closures /////////////////////////////
+///////////////////////////// 138. More Closure Examples /////////////////////////////
+///////////////////////////// 139. Coding Challenge #2 /////////////////////////////
+
+
