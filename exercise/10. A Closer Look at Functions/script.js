@@ -51,6 +51,7 @@ createBooking2('LP126', undefined , 6 ); // {flightNumb: 'LP126', numPasssengers
 
 
 ///////////////////////////// 129. /////////////////////////////
+/*
 // 이 파트는 function에 arguments를 어떻게 pass하는지에 대해서 알아본다.
 // 앞서 살펴본 primitive 타입과 reference 타입에 대해 배운것과도 연관된 내용
 
@@ -109,5 +110,131 @@ checkIn(flight, john);
 // 그러나 we do not pass 'by' reference, 참조를 전달하는것은 아니다!
 // 이 중요한 차이점을 인식해야 한다
 
+*/
 ///////////////////////////// 130. /////////////////////////////
 
+// First-Class Functions 일급함수
+// JavaScript treats functions as first-class citizens 
+// This means that functions are simply values
+// Functions are just another 'type' of object
+
+// function은 자바스크립트에서 다른 유형의 object이다.
+// Object는 value이기 때문에 마찬가지로 function도 값이다.
+// 값이기 때문에 변수나 object의 property로 저장 할 수 있는 등 여러가지 특징이 생기낟.
+// 그림의 빨간색 박스가 그 예시처럼 function은 그 자체로 값이기 때문에 원하는 곳에 저장 할 수 있다.
+// 또한 다른 함수의 argument로 사용 될 수도 있다.
+// Return functions From functions 다른 함수에서 함수를 반환 할 수도 있다.
+// 마지막으로 function은 object이고 JS에서 많은 객체 유형들은 매서드를 가지고 있다.
+// actually there are also function methods. 마찬가지로 펑션도 매서드를 가지고 있다.
+// So methods that we can call on functions
+// bind 매서드가 그 예 (뒤에서 추가적으로)
+
+// Higher-order functions 고차함수 
+// A function that receives another function as an argument, that returns a new function, or both
+// This is only possible because of first-class functions
+// JS에서 First-class functions 기능이 있어서 고차함수를 사용 할 수 있다.
+
+// 첫번째 예시처럼 function을 다른 function에 argument로 사용 할 수 있다.
+// argument로 전달되는 함수를 보통 Callback function이라고 부른다.
+// 왜 콜백함수라고 부르냐면 고차 함수에 의해서 나중에 호출되기 때문이다.
+
+// 두번째는 다른 함수를 반환하는 함수
+
+// 일급함수와 고차함수에 대해서 혼동 하는 사람들이 있는데 엄연히 다른 개념 (미묘한 차이일지라도)
+// 일급함수는 프로그래밍 언어가 가지고 있거나 가지고 있지 않은 feature를 말하는 것
+// 의미는 모든 펑션이 value라는 개념일뿐 실제로 일급함수라는 함수가 있는게 아니다.
+
+// 그러나 고차함수는 실제로 있는 함수이다.
+// 프로그래밍 언어에서 일급함수 feature를 제공하는 경우에 한해서 
+
+///////////////////////////// 131. /////////////////////////////
+/*
+//// High-order function 실제로 만들어보자
+
+const oneWord = function (str) {
+  return str.replace(/ /g, '').toLowerCase();
+};
+
+const upperFirstWord = function (str) {
+  const [first, ...others] = str.split(' ');
+  return [first.toUpperCase(), ...others].join(' ')
+};
+
+// argument에 다른 function이 들어가는 high-order function
+const transformer = function (str, fn) {
+  console.log(`Original String: ${str}`);
+  console.log(`Transformed string: ${fn(str)}`);
+
+  console.log(`Transformed by: ${fn.name}`);
+}
+
+transformer('JavaScripit is the best!', upperFirstWord)
+// Original String: JavaScripit is the best!
+// Transformed string: JAVASCRIPIT is the best!
+// Transformed by: upperFirstWord
+
+transformer('JavaScripit is the best!', oneWord)
+// Original String: JavaScripit is the best!
+// Transformed string: javascripitisthebest!
+// Transformed by: oneWord
+
+// 콜백함수로 upperFirstWord, oneWord 가 동작한것을 알 수 있다.
+
+const high5 = function () {
+  console.log('hello');
+}
+
+//// JS uses callbacks all the time
+
+document.body.addEventListener('click', high5);
+// 클릭하면 high5 콜백함수 작동해서 콘솔창에 hello가 출력된다.
+// addEventListenr는 high-order function
+// high5는 call-back function이다.
+// body에 클릭하는 즉시 high5를 호출한다.
+
+// JS에 내장된 function에도 이러한 콜백 함수 개념이 사용되어 있다.
+
+['John', 'Paul', 'George'].forEach(high5);
+// hello 가 3번 출력
+// 각각 배열의 요소마다 한번씩 high5를 호출하는 상황
+
+//// 콜백함수의 장점 
+
+// 1. 쉽게 분할하거나 재사용가능하고 상호 연결이 가능한 코딩을 할 수 있다.
+
+// 2. 추상화(abstraction)을 가능하게 한다.
+// 프로그래밍에서 추상화는 코드의 세부사항 구현에 대해 숨긴다는 것
+// 세부사항에 대해 숨기는 것은 우리가 문제에 대해 더 추상적인 레벨로 생각 할 수 있게 해준다.
+// 추상화에 대해서는 OOP에서 더 자세하게 이야기
+
+// 예시에서는 oneWord, uppFirstWord로 low level의 디테일함을 분리시켰고
+// transformer에서 높은 레벨로 추상화를 한 상황이다.
+
+*/
+
+///////////////////////////// 132. /////////////////////////////
+// 이번에는 함수를 반환하는 함수를 만들어 보자
+
+const greet = function (greeting) {
+  return function(name) {
+    console.log(`${greeting} ${name}`);
+  };
+};
+
+const greeterHey = greet('Hey');
+greeterHey('John'); // Hey John
+greeterHey('Paul'); // Hey Paul
+
+// 이것이 작동하는 이유는 Closure (클로저) 메커니즘
+// 클로저는 굉장히 복잡하고 어려운 메커니즘
+// 이에 대해서는 나중에 따로 강의
+
+greet('Hello')('Jonas'); // Hello Jonas
+
+// 이렇게 함수가 함수를 반환하는 것은 functional programming(함수형 프로그래밍)에서 특히 유용하다.
+
+const greetArr = greeting => name => console.log(`${greeting} ${name}`);
+greetArr('Hi')('George'); // Hi George
+
+
+///////////////////////////// 133. /////////////////////////////
