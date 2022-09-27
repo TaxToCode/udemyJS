@@ -321,7 +321,103 @@ book.call(swiss, ...flightData);
 // bind를 사용하면 마찬가지로 this keyword를 수동으로 설정 할 수 있다.
 // 차이점을 즉시 호출하지 않는 것
 // 대신 this keyword가 bind된 곳에 새로운 함수를 반환한다.
-// 따라서 
+
+const lufthansa = {
+  airline : 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  book(flightNum, name) {
+    console.log(`${name} booked a seat on ${this.airline} flight ${this.iataCode} ${flightNum}`);
+    this.bookings.push({ flight: `${this.iataCode} ${flightNum}`, name });
+  }
+}
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+}
+const book = lufthansa.book;
+
+
+// bind는 book 함수를 호출하는 것이 아니라
+// this keyword를 eurowings로 하는 new function을 return한다.
+// eurowings를 this keyword로 지정한 상황
+const bookEw = book.bind(eurowings);
+const bookLH = book.bind(lufthansa);
+
+// bind를 통해서 이미 this키워드가 지정되어 있기 때문에 사용 할 때 지정 할 필요가 없다.
+bookEw(23, 'Steven Williams'); //Steven Williams booked a seat on Eurowings flight EW 23
+
+
+// call 매서드에서 2번째 인수부터 시작해서 여러 인수 전달 할 수 있다.
+// bind도 마찬가지로 똑같이 할 수 있다.
+
+// 위에 펑션을 보면 argument로 flightNum, name 2개가 들어가야 한다.
+// bookEW23처럼 넣으면 flightNumb만 기입이 된 상황임.
+// 그러면 우리가 사용 할 때는 name만 넣어주면 되는거임.
+// 이렇게 parameter를 일부 preset해놓고 쓰는 패턴을 partial application 이라고 한다.
+const bookEW23 = book.bind(eurowings, 23);
+
+// 23은 미리 기입된 거라서 자동으로 들어가게 된다.
+bookEW23('Joe Hart'); // Joe Hart booked a seat on Eurowings flight EW 23
+bookEW23('John Stones'); // John Stones booked a seat on Eurowings flight EW 23
+
+// With Event Listeners
+
+lufthansa.planes = 300;
+lufthansa.buyPlane = function() {
+  console.log(this);
+  this.planes ++;
+  console.log(this.planes);
+}
+
+document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane);
+// 버튼을 누르면 콘솔창에 이렇게 뜬다.
+// <button class=​"buy">​Buy new plane ​</button>​
+// NaN
+
+// 앞서 배웠듯 eventhandler 함수에서는 this keyword가 연결된 요소를 가리킨다.
+// 그래서 <button class=​"buy">​Buy new plane ​</button>​ 를 반환하는것
+
+lufthansa.buyPlane();
+// {airline: 'Lufthansa', iataCode: 'LH', bookings: Array(0), planes: 300, book: ƒ, …}
+// 301
+
+// 이 경우에는 버튼을 누른것과는 다르게 함수를 호출하는 객체라서 의도대로 작동함.
+// this keyword가 동적으로 작동하기 때문임
+
+
+document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+// {airline: 'Lufthansa', iataCode: 'LH', bookings: Array(0), planes: 301, book: ƒ, …}
+// 302
+
+// 그렇다면 버튼에 의도대로 작동시키기 위해서는 this keyword를 수동으로 지정해줘야 한다는 소리임
+// 이렇게 bind를 사용해서 this keryword를 지정해주면 버튼이 의도대로 작동된다.
+
+
+//// Partial application 
+// we can preset parameters
+
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200)); // 220
+
+// this keyword를 지정하지 않을 것이기 때문에 null을 사용해줌
+// null을 사용하는것을 일종의 표준
+const addVAT = addTax.bind(null, 0.23);
+
+console.log(addVAT(400)); // 492
+console.log(addVAT(23)); // 28.29
+
+// mini challenge
+
+const addTaxRate = function(rate) {
+  return function(value){
+    return value + value * rate;
+  }
+}
+const addVAT2 = addTaxRate(0.23);
+console.log(addVAT2(400)); // 492
+
 
 
 ///////////////////////////// 135. Coding Challenge #1 /////////////////////////////
