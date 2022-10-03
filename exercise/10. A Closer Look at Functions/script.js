@@ -1,6 +1,5 @@
 'use strict';
 
-
 ///////////////////////////// 128. Default Parameters /////////////////////////////
 /*
 const bookings = [];
@@ -48,7 +47,6 @@ createBooking2('LP125', 2 ); // {flightNumb: 'LP125', numPasssengers: 2, price: 
 // createBooking2('LP125', , 5 ); // Uncaught SyntaxError: Unexpected token ',' (at script.js:43:25)
 createBooking2('LP126', undefined , 6 ); // {flightNumb: 'LP126', numPasssengers: 1, price: 6}
 */
-
 
 ///////////////////////////// 129. How Passing Arguments Works: Value vs. Reference /////////////////////////////
 /*
@@ -114,7 +112,7 @@ checkIn(flight, john);
 ///////////////////////////// 130. First-Class and Higher-Order Functions /////////////////////////////
 
 // First-Class Functions 일급함수
-// JavaScript treats functions as first-class citizens 
+// JavaScript treats functions as first-class citizens
 // This means that functions are simply values
 // Functions are just another 'type' of object
 
@@ -129,7 +127,7 @@ checkIn(flight, john);
 // So methods that we can call on functions
 // bind 매서드가 그 예 (뒤에서 추가적으로)
 
-// Higher-order functions 고차함수 
+// Higher-order functions 고차함수
 // A function that receives another function as an argument, that returns a new function, or both
 // This is only possible because of first-class functions
 // JS에서 First-class functions 기능이 있어서 고차함수를 사용 할 수 있다.
@@ -145,7 +143,7 @@ checkIn(flight, john);
 // 의미는 모든 펑션이 value라는 개념일뿐 실제로 일급함수라는 함수가 있는게 아니다.
 
 // 그러나 고차함수는 실제로 있는 함수이다.
-// 프로그래밍 언어에서 일급함수 feature를 제공하는 경우에 한해서 
+// 프로그래밍 언어에서 일급함수 feature를 제공하는 경우에 한해서
 
 ///////////////////////////// 131. Functions Accepting Callback Functions /////////////////////////////
 /*
@@ -316,7 +314,7 @@ book.call(swiss, ...flightData);
 */
 
 ///////////////////////////// 134. The bind Method /////////////////////////////
-
+/*
 //// bind
 // bind를 사용하면 마찬가지로 this keyword를 수동으로 설정 할 수 있다.
 // 차이점을 즉시 호출하지 않는 것
@@ -418,12 +416,201 @@ const addTaxRate = function(rate) {
 const addVAT2 = addTaxRate(0.23);
 console.log(addVAT2(400)); // 492
 
-
-
+*/
 ///////////////////////////// 135. Coding Challenge #1 /////////////////////////////
+// A Closer Look at Functions
+// Coding Challenge #1
+// Let's build a simple poll app!
+// A poll has a question, an array of options from which people can choose, and an array with the number of replies for each option.
+// This data is stored in the starter 'poll' object below.
+// Your tasks:
+
+// 1. Createamethod called'registerNewAnswer'on the'poll'object.The method does 2 things:
+// 'registerNewAnswer'라는 매서드를 poll object 안에 만든다. 해당 매서드는 아래와 같은 역할을 한다.
+// 1.1. Display a prompt window for the user to input the number of the selected option.
+// prompt창을 보여준다. 유저는 옵션 넘버를 입력 할 수 있다. 아래 예시처럼 창이 떠야한다.
+// The prompt should look like this: What is your favourite programming language?
+// 0: JavaScript
+// 1: Python
+// 2: Rust
+// 3: C++
+// (Write option number)
+
+// 1.2. Based on the input number, update the 'answers' array property.
+// 입력된 input number 값에 맞춰서 answers array를 업데이트 한다.
+// For example, if the option is 3, increase the value at position 3 of the array by 1.
+// Make sure to check if the input is a number and if the number makes sense (e.g. answer 52 wouldn't make sense, right?)
+// input넘버 말이 안되는거 들어오면 해당 케이스 체크해야함.
+
+// 2. Call this method whenever the user clicks the"Answerpoll" button.
+// 유저가 Answerpoll 버튼을 누를 때 해당 매서드가 호출되게 해라
+
+// 3. Create a method 'displayResults' which displays the poll results.
+// 'displayResults'라는 매서드를 만들어서 poll 결과를 보여준다.
+// The method takes a string as an input (called 'type'), which can be either 'string' or 'array'.
+// 해당 매서드는 string이나 array를 인풋으로 받는다.
+// If type is 'array', simply display the results array as it is, using console.log(). This should be the default option.
+// 만약 type이 array면 그냥 console.log()를 사용해서 results array를 보여준다. 이게 기본값이다.
+//  If type is 'string', display a string like "Poll results are 13, 2, 4, 1".
+// 만약 type이 string이면 "Poll results are 13, 2, 4, 1" 이런식으로 보여준다.
+
+// 4. Run the 'displayResults' method at the end of each 'registerNewAnswer' method call.
+// 'registerNewAnswer' 매서드가 호출될 때마다 'displayResults' 매서드를 실행시켜라.
+
+// 5. Bonus: Use the 'displayResults' method to display the 2arrays in the test data.
+// Bonus: 'displayResults' 매서드를 사용해서 test data 안에 있는 2개의 array를 보여준다.
+// Use both the 'array' and the 'string' option.
+// 'array'와 'string' 옵션을 사용해라.
+// Do not put the arrays in the poll object! So what should the this keyword look like in this situation?
+// poll object 안에 array를 넣지 말아라! 그럼 this keyword는 어떻게 보여야할까?
+
+// Test data for bonus:
+// § Data1:[5,2,3]
+// § Data2:[1,5,3,9,6,1]
+// Hints: Use many of the tools you learned about in this and the last section 😉 GOOD LUCK 😀
+
+//// self try
+/*
+const poll = {
+  question: 'What is your favourite programming language?',
+  options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
+  // This generates [0, 0, 0, 0]. More in the next section!
+  answers: new Array(4).fill(0),
+};
+
+poll.registerNewAnswer = function () {
+  const usersAnswer = window.prompt(`
+    The prompt should look like this: 
+    What is your favourite programming language?
+    0: JavaScript
+    1: Python
+    2: Rust
+    3: C++
+    `);
+
+  if (Number(usersAnswer) >= 1 && Number(usersAnswer) <= 3) {
+    this.answers[usersAnswer] += 1;
+  } else {
+    alert('0~4 사이로 입력하세요.');
+  }
+  displayResults(this.answers);
+};
+
+const registerNewAnswer = poll.registerNewAnswer;
+const registerNewAnswerPoll = registerNewAnswer.bind(poll);
+
+document
+  .querySelector('.poll')
+  .addEventListener('click', registerNewAnswerPoll);
+
+const displayResults = function (input) {
+  if (Array.isArray(input)) {
+    console.log(input);
+  }
+  if (typeof input === 'string') {
+    console.log(`Poll results ars ${input}`);
+  }
+};
+*/
+
+//// lecture
+// const poll = {
+//   question: 'What is your favourite programming language?',
+//   options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
+//   // This generates [0, 0, 0, 0]. More in the next section!
+//   answers: new Array(4).fill(0),
+//   registerNewAnswer() {
+//     // Get answer
+//     const answer = Number(
+//       prompt(
+//         `${this.question}\n${this.options.join('\n')}\n(Write option number)`
+//       )
+//     );
+//     console.log(answer);
+
+//     // Register answer
+//     typeof answer === 'number' &&
+//       answer < this.answers.length &&
+//       this.answers[answer]++;
+//     this.displayResults();
+//     this.displayResults('string');
+//   },
+//   displayResults(type = 'array') {
+//     if (type === 'array') {
+//       console.log(this.answers);
+//     } else if (type === 'string') {
+//       console.log(`Poll results are ${this.answers.join(', ')}`);
+//     }
+//   },
+// };
+
+// document
+//   .querySelector('.poll')
+//   .addEventListener('click', poll.registerNewAnswer.bind(poll));
+
+// poll.displayResults.call({ answers: [5, 2, 3] }, 'string'); // Poll results are 5, 2, 3
+// poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string'); // Poll results are 1, 5, 3, 9, 6, 1
+// poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }); // (6) [1, 5, 3, 9, 6, 1]
+
 ///////////////////////////// 136. Immediately Invoked Function Expressions (IIFE) /////////////////////////////
+
+// JS에서는 때때로 딱 한번만 실행되고 다시 실행되지 않고 사라지는 함수가 필요함.
+// 예를 들어 async/await
+
+// 우리는 즉시 함수를 실행시키고 저장하지 않고 사라지는걸 원한다.
+// 이건 사라지지 않고 이후에도 호출이 가능하므로 우리가 원하는 것이 아니다.
+// const runOnce = function () {
+//   console.log(`This will never run again`);
+// };
+// runOnce();
+
+// Uncaught SyntaxError: Function statements require a function name (at script.js:570:1)
+// 이렇게 하면 에러가 뜬다..
+// function() {
+//   console.log('This will never run again');
+// }
+
+// 이렇게 하면 에러는 뜨지 않지만 호출은 되지 않는다.
+// (function () {
+//   console.log('This will never run again');
+// });
+
+// This will never run again
+// 이런걸 Immediately Invoked Function Expressions (IIFE)라고 부른다.
+// 즉시 호출된 함수 표현식
+(function () {
+  console.log('This will never run again');
+  const isPrivate = 23;
+})();
+// This will also nver run again
+(() => console.log('This will also nver run again'))();
+
+// 이 패턴이 만들어진 이유가 무엇일까?
+// 우리는 앞에서 function이 scope를 생성한다는 것을 배웠다.
+// one scope does not have access to variabels from an inner scope
+// 외부 스코프에서는 내부 스코프에 접근 할 수 없지만 반대로 inner scope에서는 외부 스코프 접근 가능
+// global scope에서는 inner scope에 있는 어떤 것도 access 할 수 없다는 소리
+// 범위 내부는 비공개이고 이것을 데이터가 캡슐화(encapsulate) 되었다고 한다.
+// data encapsulation and data privacy는 프로그래밍에서 굉장히 중요한 개념이다.
+// 변수가 실수, 외부 스크립트나 라이브러리 프로그램 등의 다른 부분에 의해 덮어씌워지는 것을 막고 보호해야 할 필요가 있다.
+// 자세한것은 뒤에 나오는 객체 지향 프로그래밍 파트에서...
+// 변수를 보호하기 위해 scope를 활용하는것은 굉장히 좋은 방법이다.
+
+// 그리고 이것이 IIFE가 만들어진 이유다.
+// JS의 언어의 feature가 아니고 일부 개발자가 생각 해낸 패턴에 가깝다.
+// 앞서 배웠듯이 var는 block scope를 무시한다.
+// 이것이 모던JS에서 IIFE를 더 이상 사용하지 않는 이유다.
+// 왜냐면 우리는 data privacy를 위해 new scope를 만들기 위해서는 그냥 block을 생성하면 된다.
+// new scope를 만들기 위해서 함수를 만들 필요가 없다는 것
+// 다만 함수를 딱 한번만 실행하기 위해서 IIFE를 사용하는 것은 모던 JS에서도 여전히 쓰는 방법이다.
+
+{
+  const isPriveate = 23;
+  var notPrivate = 24;
+}
+console.log(notPrivate); // 24
+console.log(isPrivate); // script.js:606 Uncaught ReferenceError: isPrivate is not defined
+
 ///////////////////////////// 137. Closures /////////////////////////////
 ///////////////////////////// 138. More Closure Examples /////////////////////////////
 ///////////////////////////// 139. Coding Challenge #2 /////////////////////////////
-
-
