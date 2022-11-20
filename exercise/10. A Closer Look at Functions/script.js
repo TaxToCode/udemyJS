@@ -575,15 +575,15 @@ const displayResults = function (input) {
 //   console.log('This will never run again');
 // });
 
-// This will never run again
-// 이런걸 Immediately Invoked Function Expressions (IIFE)라고 부른다.
-// 즉시 호출된 함수 표현식
-(function () {
-  console.log('This will never run again');
-  const isPrivate = 23;
-})();
-// This will also nver run again
-(() => console.log('This will also nver run again'))();
+// // This will never run again
+// // 이런걸 Immediately Invoked Function Expressions (IIFE)라고 부른다.
+// // 즉시 호출된 함수 표현식
+// (function () {
+//   console.log('This will never run again');
+//   const isPrivate = 23;
+// })();
+// // This will also nver run again
+// (() => console.log('This will also nver run again'))();
 
 // 이 패턴이 만들어진 이유가 무엇일까?
 // 우리는 앞에서 function이 scope를 생성한다는 것을 배웠다.
@@ -604,13 +604,152 @@ const displayResults = function (input) {
 // new scope를 만들기 위해서 함수를 만들 필요가 없다는 것
 // 다만 함수를 딱 한번만 실행하기 위해서 IIFE를 사용하는 것은 모던 JS에서도 여전히 쓰는 방법이다.
 
-{
-  const isPriveate = 23;
-  var notPrivate = 24;
-}
-console.log(notPrivate); // 24
-console.log(isPrivate); // script.js:606 Uncaught ReferenceError: isPrivate is not defined
+// {
+//   const isPriveate = 23;
+//   var notPrivate = 24;
+// }
+// console.log(notPrivate); // 24
+// console.log(isPrivate); // script.js:606 Uncaught ReferenceError: isPrivate is not defined
 
 ///////////////////////////// 137. Closures /////////////////////////////
+
+// closure는 많은 사람들이 JS에서 가장 어려운 개념으로 여기며 제대로 이해하지 못하는 경향이 있다.
+// 그러나 앞서 배운 execution context, call stack, scope chian 같은 개념을 제대로 이해하고 있다면
+// 이 개념들이 복합적으로 얽혀있는 closure도 이해 할 수 있다.
+
+// 클로저에 대해 가장 먼저 이야기 할 사항은
+// 클로저는 우리가 명시적으로(explicitly) 사용하는 기능이 아니라는 것이다.
+// 따라서 새 배열이나 함수를 만드는 것처럼 수동으로 클로저를 생성하는 것이 아니다.
+// 클로저는 단순히 특정 상황에서 자동으로 발생하고 우리는 이 특정상황에 대해서 알아야 한다.
+
+// const secureBooking = function () {
+//   let passengerCount = 0;
+
+//   return function () {
+//     passengerCount++;
+//     console.log(`${passengerCount} passengers`);
+//   };
+// };
+
+// const booker = secureBooking();
+// booker(); // 1 passengers
+// booker(); // 2 passengers
+// booker(); // 3 passengers
+
+// console.dir(booker);
+
 ///////////////////////////// 138. More Closure Examples /////////////////////////////
+
+//// EX01
+// let f;
+
+// const g = function () {
+//   const a = 23;
+//   f = function () {
+//     console.log(a * 2);
+//   };
+// };
+
+// g();
+// f(); // 46
+
+// f가 글로벌 스코프에서 생성되었지만
+// g 내부에서 함수가 할당되었고 g의 변수 환경에 포함된 a라는 변수에 접근 할 수 있다.
+// f가 실행되는 시점에서 g의 변수 환경은 더 이상 존재하지 않지만 클로저로 인해 변수에 접근 할 수 있다.
+
+// let f;
+
+// const g = function () {
+//   const a = 23;
+//   f = function () {
+//     console.log(a * 2);
+//   };
+// };
+
+// const h = function () {
+//   const b = 777;
+//   f = function () {
+//     console.log(b * 2);
+//   };
+// };
+
+// g();
+// f(); // 46 (23 * 2)
+// console.dir(f); // Closure (g) {a: 23}
+
+// // Re-assigning f function
+// h();
+// f(); // 1554 (777 * 2)
+// console.dir(f); // [[Scopes]]에서 Closure (h) {b:777} 가 있다.
+
+// 그렇다면 h에서 f를 재할당 할 경우에는 어떻게 될까? 마찬가지로 작동한다.
+// 이 결과를 통해 f가 재할당된 h의 변수환경에서도 클로저가 작동하는 것을 확인 할 수 있다.
+// console.dir를 통해 보면 b의 값은 가지고 있지만 이전의 값인 a를 가지고 있지는 않다.
+// 함수를 재할당하면 이전의 closure가 사라진다!
+
+//// EX02
+// const boardPassenger = function (numb, waitTime) {
+//   const perGroup = numb / 3; // 3개의 그룹으로 가정
+
+//   setTimeout(function () {
+//     console.log(`We are now boarding all ${numb} passengers`);
+//     console.log(`There are 3 groups, each with ${perGroup} passengers`);
+//   }, waitTime * 1000);
+
+//   console.log(`Will start boarding in ${waitTime} seconds`);
+// };
+
+// const perGroup = 1000;
+// boardPassenger(180, 3);
+// Will start boarding in 3 seconds
+// We are now boarding all 180 passengers (3초 후에 뜸)
+// There are 3 groups, each with 60 passengers (3초 후에 뜸)
+
+// 2번째 예시로 타이머
+// boardPassenger가 실행되는 즉시 perGroup 변수가 생성이 된다.
+// 그 이후 setTimeout 함수가 호출된다.
+// 마지막 줄에 있는 console.log는 setTimeout이 끝나는 3초를 기다리지 않고 바로 호출된다.
+// 3초후에 setTimeout안에 있는 콜백 함수가 boardPassenger 함수로부터 완전히 독립적으로 실행된다.
+// boardPassenger는 이미 실행이 종료되었지만 클로저로 인하여
+// 콜백함수는 여전히 자기가 태어난 boardPassenger 안의 변수환경에 접근 할 수 있다.
+// 그래서 numb와 perGroup을 사용 할 수 있었다.
+// 클로저에는 argument도 마찬가지로 포함되기 때문에 waitTime에도 접근 할 수 있다.
+// argument도 함수의 local variable이기 때문에...
+
+// 또한 global scope에서 perGroup의 값을 1000으로 주었지만 클로저가 우선 순위가 더 높기 때문에
+// 1000이 아니라 60을 사용하게 된다.
+// 만약 boardPassenger 내부에 있는 perGroup 코드라인을 주석처리한다면 1000을 사용하기 때문에 아래와 같은 결과가 나온다.
+// Will start boarding in 3 seconds
+// We are now boarding all 180 passengers
+// There are 3 groups, each with 1000 passengers
+
 ///////////////////////////// 139. Coding Challenge #2 /////////////////////////////
+// 1. Take the IIFE below and at the end of the function,attach an eventlistener that changes the color of the selected h1 element ('header') to blue, each time the body element is clicked.
+// Do not select the h1 element again!
+// 아래에 있는 IIFE에 eventlistener를 붙여서 body 요소를 클릭할때 h1의 색상을 파란색으로 변경해라.
+// h1 요소를 다시 select하지 마라.
+
+// 2. And now explain to yourself(or someone around you)why this worked!
+// Take all the time you need.
+// Think about when exactly the callback function is executed, and what that means for the variables involved in this example.
+
+//// self try
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+  document.querySelector('body').addEventListener('click', () => {
+    header.style.color = 'blue';
+  });
+})();
+
+//// lecture
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+
+  document.querySelector('body').addEventListener('click', function () {
+    header.style.color = 'blue';
+  });
+})();
