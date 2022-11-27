@@ -149,19 +149,24 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 //////////////////////// 143. The new at Method ////////////////////////
 
-//// AT 매서드
+// // AT 매서드
 // ES2022에서 새로 생김
 // 전통적인 bracket 표기법을 대체 할 수 있음.
 // 배열의 length를 모를 때 마지막 요소를 고르는데 더 간편하게 사용 가능하다.
+// 또한 string에서도 at 매서드가 작동한다.
 
 const arr = [23, 11, 64];
 console.log(arr[0]); // 23
 console.log(arr.at(0)); // 23
 
 console.log(arr[arr.length - 1]); // 64
+console.log(arr.slice(-1)[0]); // 64
 console.log(arr.at(-1)); // 64
+console.log(arr.at(-2)); // 11
+console.log('john'.at(-1)); // n
 
 //// 144. Looping Arrays: forEach
+
 //// 145. forEach With Maps and Sets
 //// 146. PROJECT: "Bankist" App
 //// 147. Creating DOM Elements
